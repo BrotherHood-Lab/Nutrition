@@ -96,18 +96,18 @@
   .macro-cell:last-child { border-right: none; }
 
   .macro-val {
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 700;
-    color: var(--gold);
+    color: #e8e0d0;
     display: block;
   }
   .macro-lbl {
-    font-size: 8px;
+    font-size: 7px;
     letter-spacing: 2px;
-    color: var(--muted);
+    color: #444;
     text-transform: uppercase;
     display: block;
-    margin-top: 2px;
+    margin-top: 3px;
   }
 
   /* ─── DAY TABS ─── */
@@ -632,24 +632,44 @@
   </div>
   <div class="macros-row">
     <div class="macro-cell">
-      <span class="macro-val" id="hdr-kcal">2950</span>
-      <span class="macro-lbl">Ккал · план</span>
-      <span style="font-size:10px; color:var(--gold); display:block; margin-top:2px;" id="hdr-kcal-eaten">0 съедено</span>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:3px;">
+        <span class="macro-val" id="hdr-p">0г</span>
+        <span style="font-size:10px;color:#333;" id="hdr-p-plan">/229г</span>
+      </div>
+      <span class="macro-lbl">Белок</span>
+      <div style="margin-top:8px;background:#1a1a1a;height:4px;">
+        <div id="hdr-p-bar" style="background:var(--gold);height:4px;width:0%;transition:width 0.4s;"></div>
+      </div>
     </div>
     <div class="macro-cell">
-      <span class="macro-val" id="hdr-p">229г</span>
-      <span class="macro-lbl">Белок · план</span>
-      <span style="font-size:10px; color:var(--gold); display:block; margin-top:2px;" id="hdr-p-eaten">0г съедено</span>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:3px;">
+        <span class="macro-val" id="hdr-c">0г</span>
+        <span style="font-size:10px;color:#333;" id="hdr-c-plan">/302г</span>
+      </div>
+      <span class="macro-lbl">Углев</span>
+      <div style="margin-top:8px;background:#1a1a1a;height:4px;">
+        <div id="hdr-c-bar" style="background:var(--gold);height:4px;width:0%;transition:width 0.4s;"></div>
+      </div>
     </div>
     <div class="macro-cell">
-      <span class="macro-val" id="hdr-c">302г</span>
-      <span class="macro-lbl">Углев · план</span>
-      <span style="font-size:10px; color:var(--gold); display:block; margin-top:2px;" id="hdr-c-eaten">0г съедено</span>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:3px;">
+        <span class="macro-val" id="hdr-f">0г</span>
+        <span style="font-size:10px;color:#333;" id="hdr-f-plan">/81г</span>
+      </div>
+      <span class="macro-lbl">Жиры</span>
+      <div style="margin-top:8px;background:#1a1a1a;height:4px;">
+        <div id="hdr-f-bar" style="background:var(--gold);height:4px;width:0%;transition:width 0.4s;"></div>
+      </div>
     </div>
     <div class="macro-cell">
-      <span class="macro-val" id="hdr-f">81г</span>
-      <span class="macro-lbl">Жиры · план</span>
-      <span style="font-size:10px; color:var(--gold); display:block; margin-top:2px;" id="hdr-f-eaten">0г съедено</span>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:3px;">
+        <span class="macro-val" id="hdr-kcal">0</span>
+        <span style="font-size:10px;color:#333;" id="hdr-kcal-plan">/2950</span>
+      </div>
+      <span class="macro-lbl">Ккал</span>
+      <div style="margin-top:8px;background:#1a1a1a;height:4px;">
+        <div id="hdr-kcal-bar" style="background:var(--gold);height:4px;width:0%;transition:width 0.4s;"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -2297,14 +2317,22 @@ function updateHeader() {
     const pct = (mealCompletion[m.id] || 0) / 100;
     eatKcal+=mk*pct; eatP+=mp*pct; eatC+=mc*pct; eatF+=mf*pct;
   });
-  document.getElementById('hdr-kcal').textContent = planKcal;
-  document.getElementById('hdr-p').textContent = planP+'г';
-  document.getElementById('hdr-c').textContent = planC+'г';
-  document.getElementById('hdr-f').textContent = planF+'г';
-  document.getElementById('hdr-kcal-eaten').textContent = Math.round(eatKcal)+' съедено';
-  document.getElementById('hdr-p-eaten').textContent = Math.round(eatP)+'г съедено';
-  document.getElementById('hdr-c-eaten').textContent = Math.round(eatC)+'г съедено';
-  document.getElementById('hdr-f-eaten').textContent = Math.round(eatF)+'г съедено';
+  const pKcal = Math.min(100, Math.round(eatKcal/planKcal*100));
+  const pP = Math.min(100, Math.round(eatP/planP*100));
+  const pC = Math.min(100, Math.round(eatC/planC*100));
+  const pF = Math.min(100, Math.round(eatF/planF*100));
+  document.getElementById('hdr-kcal').textContent = Math.round(eatKcal);
+  document.getElementById('hdr-p').textContent = Math.round(eatP)+'г';
+  document.getElementById('hdr-c').textContent = Math.round(eatC)+'г';
+  document.getElementById('hdr-f').textContent = Math.round(eatF)+'г';
+  document.getElementById('hdr-kcal-plan').textContent = '/'+planKcal;
+  document.getElementById('hdr-p-plan').textContent = '/'+planP+'г';
+  document.getElementById('hdr-c-plan').textContent = '/'+planC+'г';
+  document.getElementById('hdr-f-plan').textContent = '/'+planF+'г';
+  document.getElementById('hdr-kcal-bar').style.width = pKcal+'%';
+  document.getElementById('hdr-p-bar').style.width = pP+'%';
+  document.getElementById('hdr-c-bar').style.width = pC+'%';
+  document.getElementById('hdr-f-bar').style.width = pF+'%';
 }
 
 function showDay(idx) {
@@ -2400,7 +2428,7 @@ function closeModal() {
 
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
-});}
+});
 </script>
 
 </body>

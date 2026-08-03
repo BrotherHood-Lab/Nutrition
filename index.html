@@ -2303,6 +2303,210 @@ const currentBfast = ['eggs','eggs','eggs','eggs','eggs','eggs','eggs'];
 let currentDay = 0;
 const mealCompletion = {};
 
+// ── SUPABASE ──
+const SUPABASE_URL = 'https://doohwfmfqvtbwdtwtfzm.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvb2h3Zm1mcXZ0YndkdHd0ZnptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3NjMwMjYsImV4cCI6MjEwMTMzOTAyNn0.EVqa9pv6pzp6AQWTLPzc7DkJU0m6cpLbnEIhFXtHBB4';
+
+// Уникальный ID пользователя — берём из localStorage или создаём новый
+function getUserId() {
+  let uid = localStorage.getItem('bh_user_id');
+  if (!uid) {
+    uid = 'user_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('bh_user_id', uid);
+  }
+  return uid;
+}
+
+function getTodayDate() {
+  return new Date().toISOString().split('T')[0];
+}
+
+async function sbFetch(method, path, body) {
+  const res = await fetch(SUPABASE_URL + path, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : ''
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!res.ok) return null;
+  return res.json().catch(() => null);
+}
+
+async function loadTodayLogs() {
+  const uid = getUserId();
+  const today = getTodayDate();
+  const data = await sbFetch('GET', `/rest/v1/meal_logs?user_id=eq.${uid}&logged_at=eq.${today}&select=meal_id,percent,day_index`);
+  if (!data) return;
+  data.forEach(row => {
+    const key = row.meal_id;
+    mealCompletion[key] = row.percent;
+    // Restore UI button
+    const btn = document.querySelector(`[data-meal-id="${key}"]`);
+    if (btn) {
+      btn.classList.add('done');
+      btn.querySelector('.check-icon').textContent = '✓';
+      btn.querySelector('.check-pct').textContent = row.percent + '%';
+    }
+  });
+  updateHeader();
+}
+
+async function saveLog(mealId, dayIndex, percent) {
+  const uid = getUserId();
+  const today = getTodayDate();
+  await sbFetch('POST', '/rest/v1/meal_logs', {
+    user_id: uid,
+    meal_id: mealId,
+    day_index: dayIndex,
+    percent: percent,
+    logged_at: today
+  });
+}
+
+async function deleteLog(mealId) {
+  const uid = getUserId();
+  const today = getTodayDate();
+  await sbFetch('DELETE', `/rest/v1/meal_logs?user_id=eq.${uid}&meal_id=eq.${mealId}&logged_at=eq.${today}`, null);
+}
+
+// Загружаем данные при старте
+window.addEventListener('DOMContentLoaded', () => {
+  loadTodayLogs();
+});
+
+function updateHeader() {
+  const meals = mealData[currentDay];
+  let planKcal=0, planP=0, planC=0, planF=0;
+  let eatKcal=0, eatP=0, eatC=0, eatF=0;
+  meals.forEach(m => {
+    let mk=m.kcal, mp=m.p, mc=m.c, mf=m.f;
+    if (m.id.endsWith('-bfast')) {
+      const bf = bfastDelta[currentBfast[currentDay]];
+      mk=bf.kcal; mp=bf.p; mc=bf.c; mf=bf.f;
+    }
+    planKcal+=mk; planP+=mp; planC+=mc; planF+=mf;
+    const pct = (mealCompletion[m.id] || 0) / 100;
+    eatKcal+=mk*pct; eatP+=mp*pct; eatC+=mc*pct; eatF+=mf*pct;
+  });
+  const pKcal = Math.min(100, Math.round(eatKcal/planKcal*100));
+  const pP = Math.min(100, Math.round(eatP/planP*100));
+  const pC = Math.min(100, Math.round(eatC/planC*100));
+  const pF = Math.min(100, Math.round(eatF/planF*100));
+  document.getElementById('hdr-kcal').textContent = Math.round(eatKcal);
+  document.getElementById('hdr-p').textContent = Math.round(eatP)+'г';
+  document.getElementById('hdr-c').textContent = Math.round(eatC)+'г';
+  document.getElementById('hdr-f').textContent = Math.round(eatF)+'г';
+  document.getElementById('hdr-kcal-plan').textContent = '/'+planKcal;
+  document.getElementById('hdr-p-plan').textContent = '/'+planP+'г';
+  document.getElementById('hdr-c-plan').textContent = '/'+planC+'г';
+  document.getElementById('hdr-f-plan').textContent = '/'+planF+'г';
+  document.getElementById('hdr-kcal-bar').style.width = pKcal+'%';
+  document.getElementById('hdr-p-bar').style.width = pP+'%';
+  document.getElementById('hdr-c-bar').style.width = pC+'%';
+  document.getElementById('hdr-f-bar').style.width = pF+'%';
+}
+
+function showDay(idx) {
+  document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('day-' + idx).classList.add('active');
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  currentDay = idx;
+  updateHeader();
+}
+
+// ── BREAKFAST SWITCHER ──
+function showBfast(type, btn, id) {
+  const card = btn.closest('.meal-card');
+  card.querySelectorAll('.bfast-btn').forEach(b => b.classList.remove('active'));
+  card.querySelectorAll('.bfast-content').forEach(c => c.style.display = 'none');
+  btn.classList.add('active');
+  document.getElementById(id + '-' + type).style.display = 'block';
+  currentBfast[currentDay] = type;
+  updateHeader();
+}
+
+// ── MODAL ──
+let modalMealId = null;
+let selectedPct = null;
+
+function openCheckModal(mealId) {
+  const meals = mealData[currentDay];
+  let meal = meals.find(m => m.id === mealId);
+  if (!meal) return;
+  let mk=meal.kcal, mp=meal.p, mc=meal.c, mf=meal.f;
+  if (meal.id.endsWith('-bfast')) {
+    const bf = bfastDelta[currentBfast[currentDay]];
+    mk=bf.kcal; mp=bf.p; mc=bf.c; mf=bf.f;
+  }
+  modalMealId = mealId;
+  selectedPct = null;
+  window._modalMeal = { name:meal.name, kcal:mk, p:mp, c:mc, f:mf };
+  document.getElementById('modal-title').textContent = meal.name;
+  document.getElementById('modal-preview').innerHTML = '— выбери процент выполнения';
+  document.getElementById('modal-confirm').disabled = true;
+  document.querySelectorAll('.pct-btn').forEach(b => b.classList.remove('selected'));
+  const existing = mealCompletion[mealId];
+  document.getElementById('modal-reset-btn').style.display = existing ? 'block' : 'none';
+  if (existing) selectPct(existing);
+  document.getElementById('modal').classList.add('open');
+}
+
+function selectPct(pct) {
+  selectedPct = pct;
+  document.querySelectorAll('.pct-btn').forEach(b => {
+    b.classList.toggle('selected', parseInt(b.textContent) === pct);
+  });
+  const m = window._modalMeal;
+  const e = v => Math.round(v * pct / 100);
+  document.getElementById('modal-preview').innerHTML =
+    `<strong>${pct}% выполнено</strong><br>` +
+    `Ккал: ${e(m.kcal)} · Белок: ${e(m.p)}г · Углев: ${e(m.c)}г · Жиры: ${e(m.f)}г`;
+  document.getElementById('modal-confirm').disabled = false;
+}
+
+async function confirmMeal() {
+  if (!selectedPct || !modalMealId) return;
+  mealCompletion[modalMealId] = selectedPct;
+  const btn = document.querySelector(`[data-meal-id="${modalMealId}"]`);
+  if (btn) {
+    btn.classList.add('done');
+    btn.querySelector('.check-icon').textContent = '✓';
+    btn.querySelector('.check-pct').textContent = selectedPct + '%';
+  }
+  closeModal();
+  updateHeader();
+  await saveLog(modalMealId || btn?.dataset.mealId, currentDay, selectedPct);
+}
+
+async function resetMeal() {
+  if (!modalMealId) return;
+  delete mealCompletion[modalMealId];
+  const btn = document.querySelector(`[data-meal-id="${modalMealId}"]`);
+  if (btn) {
+    btn.classList.remove('done');
+    btn.querySelector('.check-icon').textContent = '○';
+    btn.querySelector('.check-pct').textContent = '';
+  }
+  await deleteLog(modalMealId);
+  closeModal();
+  updateHeader();
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  modalMealId = null;
+  selectedPct = null;
+}
+
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
 function updateHeader() {
   const meals = mealData[currentDay];
   let planKcal=0, planP=0, planC=0, planF=0;

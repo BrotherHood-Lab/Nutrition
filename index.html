@@ -2471,16 +2471,18 @@ function selectPct(pct) {
 
 async function confirmMeal() {
   if (!selectedPct || !modalMealId) return;
-  mealCompletion[modalMealId] = selectedPct;
-  const btn = document.querySelector(`[data-meal-id="${modalMealId}"]`);
+  const mealId = modalMealId;
+  const pct = selectedPct;
+  mealCompletion[mealId] = pct;
+  const btn = document.querySelector(`[data-meal-id="${mealId}"]`);
   if (btn) {
     btn.classList.add('done');
     btn.querySelector('.check-icon').textContent = '✓';
-    btn.querySelector('.check-pct').textContent = selectedPct + '%';
+    btn.querySelector('.check-pct').textContent = pct + '%';
   }
   closeModal();
   updateHeader();
-  await saveLog(modalMealId || btn?.dataset.mealId, currentDay, selectedPct);
+  await saveLog(mealId, currentDay, pct);
 }
 
 async function resetMeal() {

@@ -674,6 +674,24 @@
   </div>
 </header>
 
+<!-- WATER TRACKER -->
+<div id="water-tracker" style="background:#0d1a24;border-bottom:1px solid #1e3a4a;padding:10px 20px;display:flex;align-items:center;gap:16px;">
+  <div style="flex:1">
+    <div style="font-size:7px;letter-spacing:3px;color:#4a9bc7;text-transform:uppercase;margin-bottom:6px;font-family:'Space Mono',monospace;">Вода сегодня</div>
+    <div style="background:#1a1a1a;height:4px;">
+      <div id="water-bar" style="background:#4a9bc7;height:4px;width:0%;transition:width 0.4s;"></div>
+    </div>
+    <div id="water-label" style="font-size:9px;color:#444;margin-top:5px;letter-spacing:1px;font-family:'Space Mono',monospace;">0 мл из 3500 мл</div>
+  </div>
+  <div style="display:flex;gap:6px;flex-shrink:0">
+    <button onclick="addWater(250)" style="font-size:8px;letter-spacing:1px;padding:5px 10px;border:1px solid #1e3a4a;background:none;color:#4a9bc7;font-family:'Space Mono',monospace;cursor:pointer;transition:all 0.2s;">+250</button>
+    <button onclick="addWater(500)" style="font-size:8px;letter-spacing:1px;padding:5px 10px;border:1px solid #1e3a4a;background:none;color:#4a9bc7;font-family:'Space Mono',monospace;cursor:pointer;transition:all 0.2s;">+500</button>
+    <button onclick="addWater(1000)" style="font-size:8px;letter-spacing:1px;padding:5px 10px;border:1px solid #1e3a4a;background:none;color:#4a9bc7;font-family:'Space Mono',monospace;cursor:pointer;transition:all 0.2s;">+1л</button>
+    <button onclick="drankCoffee()" title="Выпил кофе — нужно +200 мл воды" style="font-size:14px;padding:4px 10px;border:1px solid #2a1f1a;background:none;cursor:pointer;transition:all 0.2s;">☕</button>
+    <button onclick="resetWater()" style="font-size:8px;letter-spacing:1px;padding:5px 10px;border:1px solid #1e1e1e;background:none;color:#333;font-family:'Space Mono',monospace;cursor:pointer;">↺</button>
+  </div>
+</div>
+
 <!-- ══════════ ПЛАН ══════════ -->
 <div id="page-plan" class="page active">
   <div class="day-tabs">
@@ -688,7 +706,7 @@
 
   <!-- ── ПОНЕДЕЛЬНИК ── -->
   <div class="day-content active" id="day-0">
-    <div class="train-badge">▸ Тренировка · 17:00</div>
+    <div class="train-badge">▸ Тренировка · 17:00 <span style="color:var(--muted);font-size:7px;letter-spacing:1px;margin-left:8px;">· покушай за 1.5 часа до тренировки · 15:30</span></div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -709,6 +727,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d0-bfast" onclick="openCheckModal('d0-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d0-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -718,7 +737,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d0-bfast" onclick="openCheckModal('d0-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d0-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -728,11 +755,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d0-bfast" onclick="openCheckModal('d0-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d0-bfast" onclick="openCheckModal('d0-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -746,7 +780,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d0-shake" onclick="openCheckModal('d0-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -761,23 +795,13 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 82г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d0-lunch" onclick="openCheckModal('d0-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-  </div>
     
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — перекус</div><div class="meal-name">Орехи + фрукт</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Орехи</span><span class="item-gram">20 г</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 5г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 8г</span></div>
-    <button class="check-btn" data-meal-id="d0-pre" onclick="openCheckModal('d0-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
   </div>
-    
-  <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
+
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
+  </div>
+<div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
       <div><div class="meal-time">17:00–18:00</div><div class="meal-name" style="color:var(--gold); letter-spacing:4px; font-size:13px">ТРЕНИРОВКА</div></div>
@@ -798,7 +822,8 @@
       <div class="meal-item"><span class="item-name">Банан</span><span class="item-gram">1 шт</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 30г</span><span class="m-chip m-c">У · 25г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d0-post" onclick="openCheckModal('d0-post')"><span class="check-icon">○</span><span>Протеин после</span><span class="check-pct"></span></button>
+    <button class="check-btn" data-meal-id="d0-post" onclick="openCheckModal('d0-post')"><span class="check-icon">○</span><span>Протеин после тренировки</span><span class="check-pct"></span></button>
+    
   </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -814,6 +839,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 10 мин</strong>Лук обжарить 3 мин. Печень нарезать, добавить, жарить 5–7 мин. Чеснок + соевый соус, 1 мин. Подавать с рисом.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 36г</span><span class="m-chip m-c">У · 48г</span><span class="m-chip m-f">Ж · 14г</span></div>
+    <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин · Печень</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -827,7 +853,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d0-casein" onclick="openCheckModal('d0-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин · Печень</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Понедельник</div>
@@ -842,7 +868,7 @@
 
   <!-- ── ВТОРНИК ── -->
   <div class="day-content" id="day-1">
-    <div class="train-badge">▸ Тренировка · 17:00</div>
+    <div class="train-badge">▸ Тренировка · 17:00 <span style="color:var(--muted);font-size:7px;letter-spacing:1px;margin-left:8px;">· покушай за 1.5 часа до тренировки · 15:30</span></div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -863,6 +889,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d1-bfast" onclick="openCheckModal('d1-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d1-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -872,7 +899,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d1-bfast" onclick="openCheckModal('d1-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d1-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -882,11 +917,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d1-bfast" onclick="openCheckModal('d1-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d1-bfast" onclick="openCheckModal('d1-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -900,7 +942,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d1-shake" onclick="openCheckModal('d1-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -914,23 +956,13 @@
       <div class="meal-item"><span class="item-name">Рис + соевый соус</span><span class="item-gram">200 г</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 85г</span><span class="m-chip m-f">Ж · 10г</span></div>
+    <button class="check-btn" data-meal-id="d1-lunch" onclick="openCheckModal('d1-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
   </div>
-    
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — до тренировки</div><div class="meal-name">Предтрен · банан + протеин</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Протеин на воде (опционально)</span><span class="item-gram">½ порции</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 15г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d1-pre" onclick="openCheckModal('d1-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
+
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
   </div>
-    
-  <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
+<div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
       <div><div class="meal-time">17:00–18:00</div><div class="meal-name" style="color:var(--gold); letter-spacing:4px; font-size:13px">ТРЕНИРОВКА</div></div>
@@ -951,7 +983,8 @@
       <div class="meal-item"><span class="item-name">Банан</span><span class="item-gram">1 шт</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 30г</span><span class="m-chip m-c">У · 25г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d1-post" onclick="openCheckModal('d1-post')"><span class="check-icon">○</span><span>Протеин после</span><span class="check-pct"></span></button>
+    <button class="check-btn" data-meal-id="d1-post" onclick="openCheckModal('d1-post')"><span class="check-icon">○</span><span>Протеин после тренировки</span><span class="check-pct"></span></button>
+    
   </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -966,6 +999,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 7 мин</strong>Масло + чеснок 1 мин. Рыба 3–4 мин с каждой стороны. Соевый соус + сок лайма. Готово.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 42г</span><span class="m-chip m-c">У · 46г</span><span class="m-chip m-f">Ж · 10г</span></div>
+    <button class="check-btn" data-meal-id="d1-dinner" onclick="openCheckModal('d1-dinner')"><span class="check-icon">○</span><span>Ужин · Тилапия</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -979,7 +1013,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d1-casein" onclick="openCheckModal('d1-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d1-dinner" onclick="openCheckModal('d1-dinner')"><span class="check-icon">○</span><span>Ужин · Тилапия</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Вторник</div>
@@ -1015,6 +1049,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d2-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1024,7 +1059,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d2-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1034,11 +1077,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -1052,7 +1102,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d2-shake" onclick="openCheckModal('d2-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1067,21 +1117,10 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 82г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d2-lunch" onclick="openCheckModal('d2-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
+    
   </div>
-    <div class="meal-card">
-      <div class="meal-header">
-        <span class="meal-icon">🥜</span>
-        <div><div class="meal-time">15:30 — перекус</div><div class="meal-name">Орехи + манго</div></div>
-        <div class="meal-kcal">~280</div>
-      </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Орехи (кешью, миндаль)</span><span class="item-gram">40 г</span></div>
-        <div class="meal-item"><span class="item-name">Манго или банан</span><span class="item-gram">1 шт</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 7г</span><span class="m-chip m-c">У · 28г</span><span class="m-chip m-f">Ж · 16г</span></div>
-    <button class="check-btn" data-meal-id="d2-pre" onclick="openCheckModal('d2-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
-    </div>
-    <div class="meal-card">
+
+<div class="meal-card">
       <div class="meal-header">
         <span class="meal-icon">🥚</span>
         <div><div class="meal-time">19:30 — ужин</div><div class="meal-name">Тофу с яйцами</div></div>
@@ -1095,6 +1134,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 8 мин</strong>Тофу нарезать, обсушить, обжарить 3 мин. Овощи 2 мин. Яйца взбить, вылить, перемешать. Соевый соус.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 42г</span><span class="m-chip m-c">У · 32г</span><span class="m-chip m-f">Ж · 22г</span></div>
+    <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин · Тофу</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -1108,7 +1148,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d2-casein" onclick="openCheckModal('d2-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин · Тофу</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Среда</div>
@@ -1119,12 +1159,11 @@
         <div class="total-cell"><span class="total-val">90г</span><span class="total-lbl">жиры</span></div>
       </div>
     </div>
-    <button class="check-btn" data-meal-id="d2-snack" onclick="openCheckModal('d2-snack')"><span class="check-icon">○</span><span>Перекус</span><span class="check-pct"></span></button>
   </div>
 
   <!-- ── ЧЕТВЕРГ ── -->
   <div class="day-content" id="day-3">
-    <div class="train-badge">▸ Тренировка · 17:00</div>
+    <div class="train-badge">▸ Тренировка · 17:00 <span style="color:var(--muted);font-size:7px;letter-spacing:1px;margin-left:8px;">· покушай за 1.5 часа до тренировки · 15:30</span></div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1145,6 +1184,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d3-bfast" onclick="openCheckModal('d3-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d3-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1154,7 +1194,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d3-bfast" onclick="openCheckModal('d3-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d3-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1164,11 +1212,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d3-bfast" onclick="openCheckModal('d3-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d3-bfast" onclick="openCheckModal('d3-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -1182,7 +1237,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d3-shake" onclick="openCheckModal('d3-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1195,23 +1250,13 @@
       <div class="meal-item"><span class="item-name">Рис + арахисовая паста</span><span class="item-gram">200 г + 1 ст.л.</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 84г</span><span class="m-chip m-f">Ж · 14г</span></div>
+    <button class="check-btn" data-meal-id="d3-lunch" onclick="openCheckModal('d3-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
   </div>
-    
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — до тренировки</div><div class="meal-name">Предтрен · банан + протеин</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Протеин на воде (опционально)</span><span class="item-gram">½ порции</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 15г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d3-pre" onclick="openCheckModal('d3-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
+
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
   </div>
-    
-  <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
+<div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
       <div><div class="meal-time">17:00–18:00</div><div class="meal-name" style="color:var(--gold); letter-spacing:4px; font-size:13px">ТРЕНИРОВКА</div></div>
@@ -1232,7 +1277,8 @@
       <div class="meal-item"><span class="item-name">Банан</span><span class="item-gram">1 шт</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 30г</span><span class="m-chip m-c">У · 25г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d3-post" onclick="openCheckModal('d3-post')"><span class="check-icon">○</span><span>Протеин после</span><span class="check-pct"></span></button>
+    <button class="check-btn" data-meal-id="d3-post" onclick="openCheckModal('d3-post')"><span class="check-icon">○</span><span>Протеин после тренировки</span><span class="check-pct"></span></button>
+    
   </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -1248,6 +1294,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 10 мин</strong>Курицу нарезать, обжарить 5 мин. Овощи, 3 мин. Яйца разбить прямо в сковороду, перемешать. Соевый соус.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 38г</span><span class="m-chip m-f">Ж · 18г</span></div>
+    <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -1261,7 +1308,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d3-casein" onclick="openCheckModal('d3-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Четверг</div>
@@ -1297,6 +1344,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d4-bfast" onclick="openCheckModal('d4-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d4-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1306,7 +1354,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d4-bfast" onclick="openCheckModal('d4-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d4-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1316,11 +1372,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d4-bfast" onclick="openCheckModal('d4-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d4-bfast" onclick="openCheckModal('d4-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -1334,7 +1397,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d4-shake" onclick="openCheckModal('d4-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1349,23 +1412,13 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 82г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d4-lunch" onclick="openCheckModal('d4-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-  </div>
     
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — до тренировки</div><div class="meal-name">Предтрен · банан + протеин</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Протеин на воде (опционально)</span><span class="item-gram">½ порции</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 15г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d4-pre" onclick="openCheckModal('d4-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
   </div>
-    
-  <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
+
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
+  </div>
+<div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
       <div><div class="meal-time">17:00–18:00</div><div class="meal-name" style="color:var(--gold); letter-spacing:4px; font-size:13px">ТРЕНИРОВКА</div></div>
@@ -1386,7 +1439,8 @@
       <div class="meal-item"><span class="item-name">Банан</span><span class="item-gram">1 шт</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 30г</span><span class="m-chip m-c">У · 25г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d4-post" onclick="openCheckModal('d4-post')"><span class="check-icon">○</span><span>Протеин после</span><span class="check-pct"></span></button>
+    <button class="check-btn" data-meal-id="d4-post" onclick="openCheckModal('d4-post')"><span class="check-icon">○</span><span>Протеин после тренировки</span><span class="check-pct"></span></button>
+    
   </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -1402,6 +1456,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 5 мин</strong>Открыть тунец, слить. Смешать с рисом + соевый соус. Яйца сверху. Лайм. Самый быстрый ужин.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 44г</span><span class="m-chip m-f">Ж · 12г</span></div>
+    <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин · Тунец</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -1415,7 +1470,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d4-casein" onclick="openCheckModal('d4-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин · Тунец</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Пятница (бокс)</div>
@@ -1430,7 +1485,7 @@
 
   <!-- ── СУББОТА ── -->
   <div class="day-content" id="day-5">
-    <div class="train-badge">▸ Тренировка · 17:00</div>
+    <div class="train-badge">▸ Тренировка · 17:00 <span style="color:var(--muted);font-size:7px;letter-spacing:1px;margin-left:8px;">· покушай за 1.5 часа до тренировки · 15:30</span></div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1451,6 +1506,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d5-bfast" onclick="openCheckModal('d5-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d5-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1460,7 +1516,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d5-bfast" onclick="openCheckModal('d5-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d5-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1470,11 +1534,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d5-bfast" onclick="openCheckModal('d5-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d5-bfast" onclick="openCheckModal('d5-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -1488,7 +1559,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d5-shake" onclick="openCheckModal('d5-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     
   <div class="meal-card">
     <div class="meal-header">
@@ -1503,23 +1574,13 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 82г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d5-lunch" onclick="openCheckModal('d5-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-  </div>
     
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — до тренировки</div><div class="meal-name">Предтрен · банан + протеин</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Протеин на воде (опционально)</span><span class="item-gram">½ порции</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 15г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d5-pre" onclick="openCheckModal('d5-pre')"><span class="check-icon">○</span><span>Предтрен</span><span class="check-pct"></span></button>
   </div>
-    
-  <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
+
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
+  </div>
+<div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
       <div><div class="meal-time">17:00–18:00</div><div class="meal-name" style="color:var(--gold); letter-spacing:4px; font-size:13px">ТРЕНИРОВКА</div></div>
@@ -1540,7 +1601,8 @@
       <div class="meal-item"><span class="item-name">Банан</span><span class="item-gram">1 шт</span></div>
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 30г</span><span class="m-chip m-c">У · 25г</span><span class="m-chip m-f">Ж · 2г</span></div>
-    <button class="check-btn" data-meal-id="d5-post" onclick="openCheckModal('d5-post')"><span class="check-icon">○</span><span>Протеин после</span><span class="check-pct"></span></button>
+    <button class="check-btn" data-meal-id="d5-post" onclick="openCheckModal('d5-post')"><span class="check-icon">○</span><span>Протеин после тренировки</span><span class="check-pct"></span></button>
+    
   </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -1556,6 +1618,7 @@
       </div>
       <div class="recipe-block"><strong>Рецепт · 5 мин</strong>Масло + чеснок 1 мин. Креветки 2–3 мин. Лайм + соевый соус. Не пережаривать.</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 28г</span><span class="m-chip m-f">Ж · 18г</span></div>
+    <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин · Креветки</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -1569,7 +1632,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d5-casein" onclick="openCheckModal('d5-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин · Креветки</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Суббота</div>
@@ -1605,6 +1668,7 @@
         <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
+    <button class="check-btn" data-meal-id="d6-bfast" onclick="openCheckModal('d6-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d6-oats" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1614,7 +1678,15 @@
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d6-bfast" onclick="openCheckModal('d6-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
     </div>
     <div id="d6-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -1624,11 +1696,18 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
-    </div>
-  </div>
-  <button class="check-btn" data-meal-id="d6-bfast" onclick="openCheckModal('d6-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     
+    <button class="check-btn" data-meal-id="d6-bfast" onclick="openCheckModal('d6-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+</div>
+
   <div class="meal-card">
     <div class="meal-header">
       <span class="meal-icon">🥤</span>
@@ -1642,7 +1721,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
     <button class="check-btn" data-meal-id="d6-shake" onclick="openCheckModal('d6-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-  </div>
+</div>
     <div class="meal-card">
       <div class="meal-header">
         <span class="meal-icon">🍚</span>
@@ -1656,7 +1735,9 @@
       </div>
       <div class="note-card" style="margin:0 0 0 0; border:none; border-top:1px solid var(--border); font-size:9px;">⚠️ После сауны: электролитный коктейль + банан обязательно</div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 50г</span><span class="m-chip m-c">У · 95г</span><span class="m-chip m-f">Ж · 8г</span></div>
+    <button class="check-btn" data-meal-id="d6-lunch" onclick="openCheckModal('d6-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
     </div>
+    
     <div class="meal-card">
       <div class="meal-header">
         <span class="meal-icon">⚡</span>
@@ -1668,7 +1749,8 @@
         <div class="meal-item"><span class="item-name">Кокосовая вода</span><span class="item-gram">300 мл</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 6г</span><span class="m-chip m-c">У · 32г</span><span class="m-chip m-f">Ж · 12г</span></div>
-    <button class="check-btn" data-meal-id="d6-pre" onclick="openCheckModal('d6-pre')"><span class="check-icon">○</span><span>Перекус перед стримом</span><span class="check-pct"></span></button>
+    
+    
     </div>
     <div class="meal-card">
       <div class="meal-header">
@@ -1682,6 +1764,7 @@
         <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">150 г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 48г</span><span class="m-chip m-f">Ж · 20г</span></div>
+    <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
     </div>
     
   <div class="meal-card">
@@ -1695,7 +1778,7 @@
     </div>
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
     <button class="check-btn" data-meal-id="d6-casein" onclick="openCheckModal('d6-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
-    <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
+
   </div>
     <div class="day-total">
       <div class="total-label">Итого · Воскресенье</div>
@@ -1706,7 +1789,6 @@
         <div class="total-cell"><span class="total-val">82г</span><span class="total-lbl">жиры</span></div>
       </div>
     </div>
-    <button class="check-btn" data-meal-id="d6-lunch" onclick="openCheckModal('d6-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
   </div>
 
   <div class="page-footer">武道 · Brotherhood · 道</div>
@@ -2081,7 +2163,13 @@ const BREAKFAST = (id) => `
         <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     </div>
     <div id="${id}-granola" class="bfast-content" style="display:none">
       <div class="meal-items">
@@ -2091,7 +2179,13 @@ const BREAKFAST = (id) => `
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div class="note-card" style="margin:0 16px 12px; font-size:10px; border:none; border-top:1px solid var(--border)">— Добавь 2–3 варёных яйца отдельно</div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
     </div>
   </div>`;
 
@@ -2155,34 +2249,17 @@ const LUNCH_PEANUT = `
   </div>`;
 
 const PRETRAIN = `
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — до тренировки</div><div class="meal-name">Предтрен · банан + протеин</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Протеин на воде (опционально)</span><span class="item-gram">½ порции</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 15г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 2г</span></div>
-  </div>`;
+
+`;
 
 const PRETRAIN_LIGHT = `
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">⚡</span>
-      <div><div class="meal-time">15:30 — перекус</div><div class="meal-name">Орехи + фрукт</div></div>
-      <div class="meal-kcal">~250</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Банан спелый</span><span class="item-gram">1 шт</span></div>
-      <div class="meal-item"><span class="item-name">Орехи</span><span class="item-gram">20 г</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 5г</span><span class="m-chip m-c">У · 30г</span><span class="m-chip m-f">Ж · 8г</span></div>
-  </div>`;
+
+`;
 
 const TRAIN = `
+  <div style="font-size:9px; letter-spacing:2px; color:var(--muted); border:1px solid var(--border); padding:10px 14px; margin-bottom:0; font-family:'Space Mono',monospace;">
+    ▸ Покушай за 1.5 часа до тренировки · 15:30
+  </div>
   <div class="meal-card" style="border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03)">
     <div class="meal-header">
       <span class="meal-icon">🏋️</span>
@@ -2190,6 +2267,10 @@ const TRAIN = `
     </div>
     <div class="meal-items">
       <div class="meal-item"><span class="item-name">Вода</span><span class="item-gram">600–800 мл</span></div>
+    </div>
+    <div style="padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:9px;letter-spacing:2px;color:#4a9bc7;text-transform:uppercase;font-family:'Space Mono',monospace;">Добавить воду с тренировки</span>
+      <button onclick="addWater(700)" style="font-size:8px;letter-spacing:1px;padding:5px 14px;border:1px solid #1e3a4a;background:none;color:#4a9bc7;font-family:'Space Mono',monospace;cursor:pointer;">+700 мл</button>
     </div>
   </div>`;
 
@@ -2220,6 +2301,26 @@ const CASEIN = `
     <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
   </div>`;
 
+
+// ── EGGS TOGGLE ──
+let eggsAdded = {}; // track per day
+
+function toggleEggs(btn, p, c, f, kcal) {
+  const dayId = 'd' + currentDay;
+  if (!eggsAdded[dayId]) {
+    eggsAdded[dayId] = { p, c, f, kcal };
+    btn.textContent = '✓ Добавлено';
+    btn.style.color = 'var(--gold)';
+    btn.style.borderColor = 'rgba(201,168,76,0.4)';
+  } else {
+    delete eggsAdded[dayId];
+    btn.textContent = 'Добавить';
+    btn.style.color = 'var(--muted)';
+    btn.style.borderColor = 'var(--border)';
+  }
+  updateHeader();
+}
+
 // ── NAV ──
 function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2233,18 +2334,14 @@ const mealData = {
   0: [
     { id:'d0-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d0-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d0-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },
-    { id:'d0-pre',    name:'Предтрен',             kcal:250, p:15, c:30, f:2  },
-    { id:'d0-post',   name:'Протеин после',        kcal:200, p:30, c:25, f:2  },
+    { id:'d0-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },    { id:'d0-post',   name:'Протеин после тренировки',        kcal:200, p:30, c:25, f:2  },
     { id:'d0-dinner', name:'Ужин',                 kcal:540, p:36, c:48, f:14 },
     { id:'d0-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
   1: [
     { id:'d1-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d1-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d1-lunch',  name:'Обед',                 kcal:700, p:52, c:85, f:10 },
-    { id:'d1-pre',    name:'Предтрен',             kcal:250, p:15, c:30, f:2  },
-    { id:'d1-post',   name:'Протеин после',        kcal:200, p:30, c:25, f:2  },
+    { id:'d1-lunch',  name:'Обед',                 kcal:700, p:52, c:85, f:10 },    { id:'d1-post',   name:'Протеин после тренировки',        kcal:200, p:30, c:25, f:2  },
     { id:'d1-dinner', name:'Ужин',                 kcal:500, p:42, c:46, f:10 },
     { id:'d1-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
@@ -2259,36 +2356,28 @@ const mealData = {
   3: [
     { id:'d3-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d3-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d3-lunch',  name:'Обед',                 kcal:720, p:52, c:84, f:14 },
-    { id:'d3-pre',    name:'Предтрен',             kcal:250, p:15, c:30, f:2  },
-    { id:'d3-post',   name:'Протеин после',        kcal:200, p:30, c:25, f:2  },
+    { id:'d3-lunch',  name:'Обед',                 kcal:720, p:52, c:84, f:14 },    { id:'d3-post',   name:'Протеин после тренировки',        kcal:200, p:30, c:25, f:2  },
     { id:'d3-dinner', name:'Ужин',                 kcal:520, p:48, c:38, f:18 },
     { id:'d3-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
   4: [
     { id:'d4-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d4-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d4-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },
-    { id:'d4-pre',    name:'Предтрен',             kcal:250, p:15, c:30, f:2  },
-    { id:'d4-post',   name:'Протеин после',        kcal:200, p:30, c:25, f:2  },
+    { id:'d4-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },    { id:'d4-post',   name:'Протеин после тренировки',        kcal:200, p:30, c:25, f:2  },
     { id:'d4-dinner', name:'Ужин',                 kcal:480, p:52, c:44, f:12 },
     { id:'d4-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
   5: [
     { id:'d5-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d5-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d5-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },
-    { id:'d5-pre',    name:'Предтрен',             kcal:250, p:15, c:30, f:2  },
-    { id:'d5-post',   name:'Протеин после',        kcal:200, p:30, c:25, f:2  },
+    { id:'d5-lunch',  name:'Обед',                 kcal:650, p:48, c:82, f:8  },    { id:'d5-post',   name:'Протеин после тренировки',        kcal:200, p:30, c:25, f:2  },
     { id:'d5-dinner', name:'Ужин',                 kcal:460, p:44, c:28, f:18 },
     { id:'d5-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
   6: [
     { id:'d6-bfast',  name:'Завтрак',             kcal:660, p:44, c:42, f:36 },
     { id:'d6-shake',  name:'Протеиновый коктейль', kcal:480, p:35, c:68, f:8  },
-    { id:'d6-lunch',  name:'Обед',                 kcal:700, p:50, c:95, f:8  },
-    { id:'d6-pre',    name:'Перекус',              kcal:250, p:6,  c:32, f:12 },
-    { id:'d6-dinner', name:'Ужин',                 kcal:560, p:52, c:48, f:20 },
+    { id:'d6-lunch',  name:'Обед',                 kcal:700, p:50, c:95, f:8  },    { id:'d6-dinner', name:'Ужин',                 kcal:560, p:52, c:48, f:20 },
     { id:'d6-casein', name:'Казеин / творог',      kcal:200, p:25, c:6,  f:4  },
   ],
 };
@@ -2336,23 +2425,115 @@ async function sbFetch(method, path, body) {
   return res.json().catch(() => null);
 }
 
+
+// ── WATER TRACKER ──
+const WATER_GOAL = 3500;
+const waterByDay = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0};
+const coffeeByDay = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0};
+
+function updateWaterUI() {
+  const ml = waterByDay[currentDay] || 0;
+  const coffee = coffeeByDay[currentDay] || 0;
+  const effective = Math.max(0, ml - coffee * 100);
+  const pct = Math.min(100, Math.round(effective / WATER_GOAL * 100));
+  document.getElementById('water-bar').style.width = pct + '%';
+  const remaining = Math.max(0, WATER_GOAL - effective);
+  const coffeeNote = coffee > 0 ? ` · ☕ x${coffee} (-${coffee*100} мл)` : '';
+  document.getElementById('water-label').textContent =
+    (effective >= 1000 ? (effective/1000).toFixed(1) + ' л' : effective + ' мл') +
+    ' из 3.5 л · осталось ' +
+    (remaining >= 1000 ? (remaining/1000).toFixed(1) + ' л' : remaining + ' мл') +
+    coffeeNote;
+}
+
+function addWater(ml) {
+  waterByDay[currentDay] = Math.min(WATER_GOAL * 1.5, (waterByDay[currentDay] || 0) + ml);
+  updateWaterUI();
+  saveWaterLog(currentDay, waterByDay[currentDay]);
+}
+
+function drankCoffee() {
+  coffeeByDay[currentDay] = (coffeeByDay[currentDay] || 0) + 1;
+  updateWaterUI();
+  saveCoffeeLog(currentDay, coffeeByDay[currentDay]);
+}
+
+function resetWater() {
+  waterByDay[currentDay] = 0;
+  coffeeByDay[currentDay] = 0;
+  updateWaterUI();
+  saveWaterLog(currentDay, 0);
+  saveCoffeeLog(currentDay, 0);
+}
+
+async function saveWaterLog(dayIdx, ml) {
+  const uid = getUserId();
+  const today = getTodayDate();
+  await sbFetch('POST', '/rest/v1/meal_logs', {
+    user_id: uid,
+    meal_id: 'water_day_' + dayIdx,
+    day_index: dayIdx,
+    percent: Math.round(ml),
+    logged_at: today
+  });
+}
+
+async function saveCoffeeLog(dayIdx, count) {
+  const uid = getUserId();
+  const today = getTodayDate();
+  await sbFetch('POST', '/rest/v1/meal_logs', {
+    user_id: uid,
+    meal_id: 'coffee_day_' + dayIdx,
+    day_index: dayIdx,
+    percent: count,
+    logged_at: today
+  });
+}
+
+async function loadWaterLog() {
+  const uid = getUserId();
+  const today = getTodayDate();
+  const data = await sbFetch('GET', `/rest/v1/meal_logs?user_id=eq.${uid}&meal_id=like.water_day_*&logged_at=eq.${today}&select=meal_id,percent,day_index`);
+  if (data && data.length > 0) {
+    data.forEach(row => {
+      if (row.day_index >= 0 && row.day_index <= 6) waterByDay[row.day_index] = row.percent;
+    });
+  }
+  const coffeeData = await sbFetch('GET', `/rest/v1/meal_logs?user_id=eq.${uid}&meal_id=like.coffee_day_*&logged_at=eq.${today}&select=meal_id,percent,day_index`);
+  if (coffeeData && coffeeData.length > 0) {
+    coffeeData.forEach(row => {
+      if (row.day_index >= 0 && row.day_index <= 6) coffeeByDay[row.day_index] = row.percent;
+    });
+  }
+  updateWaterUI();
+}
+
 async function loadTodayLogs() {
   const uid = getUserId();
   const today = getTodayDate();
-  const data = await sbFetch('GET', `/rest/v1/meal_logs?user_id=eq.${uid}&logged_at=eq.${today}&select=meal_id,percent,day_index`);
-  if (!data) return;
-  data.forEach(row => {
-    const key = row.meal_id;
-    mealCompletion[key] = row.percent;
-    // Restore UI button
-    const btn = document.querySelector(`[data-meal-id="${key}"]`);
-    if (btn) {
-      btn.classList.add('done');
-      btn.querySelector('.check-icon').textContent = '✓';
-      btn.querySelector('.check-pct').textContent = row.percent + '%';
-    }
-  });
-  updateHeader();
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/meal_logs?user_id=eq.${uid}&logged_at=eq.${today}&select=meal_id,percent,day_index`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+      }
+    });
+    const data = await res.json();
+    console.log('Loaded logs:', data);
+    if (!Array.isArray(data)) return;
+    data.forEach(row => {
+      mealCompletion[row.meal_id] = row.percent;
+      const btn = document.querySelector(`[data-meal-id="${row.meal_id}"]`);
+      if (btn) {
+        btn.classList.add('done');
+        btn.querySelector('.check-icon').textContent = '✓';
+        btn.querySelector('.check-pct').textContent = row.percent + '%';
+      }
+    });
+    updateHeader();
+  } catch(e) {
+    console.error('Load error:', e);
+  }
 }
 
 async function saveLog(mealId, dayIndex, percent) {
@@ -2374,8 +2555,8 @@ async function deleteLog(mealId) {
 }
 
 // Загружаем данные при старте
-window.addEventListener('DOMContentLoaded', () => {
-  loadTodayLogs();
+window.addEventListener('load', () => {
+  setTimeout(() => { loadTodayLogs(); loadWaterLog(); }, 300);
 });
 
 function updateHeader() {
@@ -2392,6 +2573,15 @@ function updateHeader() {
     const pct = (mealCompletion[m.id] || 0) / 100;
     eatKcal+=mk*pct; eatP+=mp*pct; eatC+=mc*pct; eatF+=mf*pct;
   });
+  // Add eggs bonus if toggled
+  const eggs = eggsAdded['d' + currentDay];
+  if (eggs) {
+    const bfastType = currentBfast[currentDay];
+    if (bfastType === 'oats' || bfastType === 'granola') {
+      planKcal += eggs.kcal; planP += eggs.p; planC += eggs.c; planF += eggs.f;
+      eatKcal += eggs.kcal; eatP += eggs.p; eatC += eggs.c; eatF += eggs.f;
+    }
+  }
   const pKcal = Math.min(100, Math.round(eatKcal/planKcal*100));
   const pP = Math.min(100, Math.round(eatP/planP*100));
   const pC = Math.min(100, Math.round(eatC/planC*100));
@@ -2417,6 +2607,7 @@ function showDay(idx) {
   document.querySelectorAll('.tab')[idx].classList.add('active');
   currentDay = idx;
   updateHeader();
+  updateWaterUI();
 }
 
 // ── BREAKFAST SWITCHER ──

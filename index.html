@@ -698,7 +698,7 @@
 <!-- ══════════ ПЛАН ══════════ -->
 <div id="page-plan" class="page active">
   <div class="day-tabs">
-    <button class="tab active" onclick="showDay(0)">Пн <span class="train-dot"></span></button>
+    <button class="tab" onclick="showDay(0)">Пн <span class="train-dot"></span></button>
     <button class="tab" onclick="showDay(1)">Вт <span class="train-dot"></span></button>
     <button class="tab" onclick="showDay(2)">Ср</button>
     <button class="tab" onclick="showDay(3)">Чт <span class="train-dot"></span></button>
@@ -2392,7 +2392,9 @@ const bfastDelta = {
 };
 
 const currentBfast = ['eggs','eggs','eggs','eggs','eggs','eggs','eggs'];
-let currentDay = 0;
+// Автоматически выбираем сегодняшний день (Пн=0, Вт=1, ... Вс=6)
+const todayWeekday = (new Date().getDay() + 6) % 7; // JS: 0=Вс → переводим в 0=Пн
+let currentDay = todayWeekday;
 const mealCompletion = {};
 
 // ── АВТОРИЗАЦИЯ ──
@@ -2560,6 +2562,7 @@ async function deleteLog(mealId) {
 
 // Загружаем данные при старте
 window.addEventListener('load', () => {
+  showDay(todayWeekday);
   setTimeout(() => { loadTodayLogs(); loadWaterLog(); }, 300);
 });
 

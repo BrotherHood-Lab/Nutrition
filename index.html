@@ -627,8 +627,11 @@
   </div>
   <div class="h-tagline">It's you against you</div>
   <div style="display:flex; align-items:center; gap:16px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border);">
-    <div style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; letter-spacing:6px; color:var(--gold); text-transform:uppercase;">LeXeR</div>
-    <div style="margin-left:auto; font-size:8px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; border:1px solid var(--border); padding:3px 10px;">Набор массы</div>
+    <div id="user-nick" style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; letter-spacing:6px; color:var(--gold); text-transform:uppercase;">...</div>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+      <div style="font-size:8px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; border:1px solid var(--border); padding:3px 10px;">Набор массы</div>
+      <div onclick="logoutUser()" style="font-size:8px; letter-spacing:1px; color:#555; cursor:pointer; padding:3px 8px; border:1px solid #222;">✕</div>
+    </div>
   </div>
   <div class="macros-row">
     <div class="macro-cell">
@@ -2392,18 +2395,19 @@ const currentBfast = ['eggs','eggs','eggs','eggs','eggs','eggs','eggs'];
 let currentDay = 0;
 const mealCompletion = {};
 
+// ── АВТОРИЗАЦИЯ ──
+// Если нет Telegram ID — отправляем на логин
+if (!localStorage.getItem('bh_telegram_id')) {
+  window.location.href = '/Nutrition/login.html';
+}
+
 // ── SUPABASE ──
 const SUPABASE_URL = 'https://doohwfmfqvtbwdtwtfzm.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvb2h3Zm1mcXZ0YndkdHd0ZnptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3NjMwMjYsImV4cCI6MjEwMTMzOTAyNn0.EVqa9pv6pzp6AQWTLPzc7DkJU0m6cpLbnEIhFXtHBB4';
 
-// Уникальный ID пользователя — берём из localStorage или создаём новый
+// Уникальный ID пользователя — берём Telegram ID из логина
 function getUserId() {
-  let uid = localStorage.getItem('bh_user_id');
-  if (!uid) {
-    uid = 'user_' + Math.random().toString(36).substr(2, 9);
-    localStorage.setItem('bh_user_id', uid);
-  }
-  return uid;
+  return 'tg_' + localStorage.getItem('bh_telegram_id');
 }
 
 function getTodayDate() {
@@ -2699,6 +2703,22 @@ function closeModal() {
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// ── Логин / Выход ──
+function logoutUser() {
+  if (confirm('Выйти из кабинета?')) {
+    localStorage.removeItem('bh_telegram_id');
+    localStorage.removeItem('bh_nickname');
+    window.location.href = '/Nutrition/login.html';
+  }
+}
+
+// Показать ник
+(function() {
+  const nick = localStorage.getItem('bh_nickname') || 'User';
+  const el = document.getElementById('user-nick');
+  if (el) el.textContent = nick;
+})();
 </script>
 
 </body>

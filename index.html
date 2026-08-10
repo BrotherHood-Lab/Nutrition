@@ -720,6 +720,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d0')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d0')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d0')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d0')">Чиа</button>
     </div>
     <div id="d0-eggs" class="bfast-content">
       <div class="meal-items">
@@ -758,6 +759,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d0-bfast" onclick="openCheckModal('d0-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d0-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -882,6 +903,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d1')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d1')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d1')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d1')">Чиа</button>
     </div>
     <div id="d1-eggs" class="bfast-content">
       <div class="meal-items">
@@ -920,6 +942,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d1-bfast" onclick="openCheckModal('d1-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d1-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1042,6 +1084,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d2')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d2')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d2')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d2')">Чиа</button>
     </div>
     <div id="d2-eggs" class="bfast-content">
       <div class="meal-items">
@@ -1080,6 +1123,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d2-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1177,6 +1240,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d3')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d3')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d3')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d3')">Чиа</button>
     </div>
     <div id="d3-eggs" class="bfast-content">
       <div class="meal-items">
@@ -1215,6 +1279,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d3-bfast" onclick="openCheckModal('d3-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d3-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1337,6 +1421,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d4')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d4')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d4')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d4')">Чиа</button>
     </div>
     <div id="d4-eggs" class="bfast-content">
       <div class="meal-items">
@@ -1375,6 +1460,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d4-bfast" onclick="openCheckModal('d4-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d4-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1499,6 +1604,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d5')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d5')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d5')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d5')">Чиа</button>
     </div>
     <div id="d5-eggs" class="bfast-content">
       <div class="meal-items">
@@ -1537,6 +1643,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d5-bfast" onclick="openCheckModal('d5-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d5-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">
@@ -1661,6 +1787,7 @@
       <button class="bfast-btn active" onclick="showBfast('eggs',this,'d6')">Яйца</button>
       <button class="bfast-btn" onclick="showBfast('oats',this,'d6')">Каша</button>
       <button class="bfast-btn" onclick="showBfast('granola',this,'d6')">Гранола</button>
+      <button class="bfast-btn" onclick="showBfast('chia',this,'d6')">Чиа</button>
     </div>
     <div id="d6-eggs" class="bfast-content">
       <div class="meal-items">
@@ -1699,6 +1826,26 @@
         <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
       </div>
       <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
+      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
+          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+        </div>
+      </div>
+    
+    <button class="check-btn" data-meal-id="d6-bfast" onclick="openCheckModal('d6-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
+    </div>
+    <div id="d6-chia" class="bfast-content" style="display:none">
+      <div class="meal-items">
+        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
+        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
+        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
+        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
+        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
+      </div>
+      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
       <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
         <div style="display:flex; align-items:center; gap:8px;">

@@ -1,4 +1,36 @@
-<!DOCTYPE html>
+<!DO
+
+  // ── COMMON DINNER RECIPES ───────────────────────────────────────────────────
+  recipeData['dinner-chicken'] = {
+    name:'Курица в соевом соусе', icon:'🍗', totalTime:'10 мин',
+    steps:[
+      { title:'Нарезать курицу', desc:'Нарезать куриную грудку полосками или кубиками.', dur:60 },
+      { title:'Раскалить сковороду', desc:'Добавить масло, хорошо разогреть на сильном огне.', dur:60 },
+      { title:'Обжарить курицу', desc:'Выложить курицу. Не трогать 2–3 мин — пусть схватится корочка.', dur:180 },
+      { title:'Перевернуть + соус', desc:'Перевернуть кусочки. Добавить чеснок, соевый соус, мёд.', dur:120 },
+      { title:'Карамелизация', desc:'Жарить до золотистой корочки. Соус должен загустеть.', dur:120 },
+    ]
+  };
+  recipeData['dinner-fish'] = {
+    name:'Рыба с рисом и лаймом', icon:'🐟', totalTime:'7 мин',
+    steps:[
+      { title:'Раскалить сковороду', desc:'Добавить масло + измельчённый чеснок. Обжарить 30 секунд.', dur:60 },
+      { title:'Положить рыбу', desc:'Рыбу выложить. Не двигать — дать схватиться корочке.', dur:180 },
+      { title:'Перевернуть', desc:'Перевернуть на другую сторону.', dur:180 },
+      { title:'Финал', desc:'Добавить соевый соус + выжать лайм. Снять с огня.', dur:30 },
+    ]
+  };
+  recipeData['dinner-tofu'] = {
+    name:'Тофу скрэмбл с яйцами', icon:'🥚', totalTime:'8 мин',
+    steps:[
+      { title:'Подготовить тофу', desc:'Нарезать кубиками 2×2 см. Обсушить бумажным полотенцем — иначе не будет корочки.', dur:60 },
+      { title:'Обжарить тофу', desc:'Раскалить сковороду с маслом. Выложить тофу и НЕ ТРОГАТЬ 3 мин.', dur:180 },
+      { title:'Добавить овощи', desc:'Перевернуть тофу. Добавить овощи + чеснок + имбирь.', dur:120 },
+      { title:'Яйца', desc:'Взбить яйца, вылить в сковороду. Перемешивать до готовности.', dur:60 },
+      { title:'Соевый соус', desc:'Добавить соевый соус. Снять с огня. Готово.', dur:30 },
+    ]
+  };
+CTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -924,19 +956,51 @@
   </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🍗</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d0-dinner')">Куриная печень с рисом ›</div></div>
-        <div class="meal-kcal">~540</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Куриная печень</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Лук + чеснок</span><span class="item-gram">1 шт + 2 зуб</span></div>
-        <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Соевый соус + масло</span><span class="item-gram">по вкусу</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,0)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,0)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,0)">🥚 Тофу</button>
       </div>
-      <div class="recipe-block"><strong>Рецепт · 10 мин</strong>Лук обжарить 3 мин. Печень нарезать, добавить, жарить 5–7 мин. Чеснок + соевый соус, 1 мин. Подавать с рисом.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 36г</span><span class="m-chip m-c">У · 48г</span><span class="m-chip m-f">Ж · 14г</span></div>
-    <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин · Печень</span><span class="check-pct"></span></button>
+
+      <div id="d0-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d0-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d0-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d0-dinner" onclick="openCheckModal('d0-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
     </div>
     
   <div class="meal-card">
@@ -1107,202 +1171,51 @@
   </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🐟</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d1-dinner')">Тилапия с рисом и лаймом ›</div></div>
-        <div class="meal-kcal">~500</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Рыба (тилапия / дорадо)</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Чеснок + масло + лайм</span><span class="item-gram">по вкусу</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,2)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,2)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,2)">🥚 Тофу</button>
       </div>
-      <div class="recipe-block"><strong>Рецепт · 7 мин</strong>Масло + чеснок 1 мин. Рыба 3–4 мин с каждой стороны. Соевый соус + сок лайма. Готово.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 42г</span><span class="m-chip m-c">У · 46г</span><span class="m-chip m-f">Ж · 10г</span></div>
-    <button class="check-btn" data-meal-id="d1-dinner" onclick="openCheckModal('d1-dinner')"><span class="check-icon">○</span><span>Ужин · Тилапия</span><span class="check-pct"></span></button>
-    </div>
-    
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">🌙</span>
-      <div><div class="meal-time">23:00 — после йоги</div><div class="meal-name">Казеин / творог</div></div>
-      <div class="meal-kcal">~200</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Казеин или творог</span><span class="item-gram">1 порция / 150 г</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 25г</span><span class="m-chip m-c">У · 6г</span><span class="m-chip m-f">Ж · 4г</span></div>
-    <button class="check-btn" data-meal-id="d1-casein" onclick="openCheckModal('d1-casein')"><span class="check-icon">○</span><span>Казеин / творог</span><span class="check-pct"></span></button>
 
-  </div>
-    <div class="day-total">
-      <div class="total-label">Итого · Вторник</div>
-      <div class="total-row">
-        <div class="total-cell"><span class="total-val">2950</span><span class="total-lbl">ккал</span></div>
-        <div class="total-cell"><span class="total-val">229г</span><span class="total-lbl">белок</span></div>
-        <div class="total-cell"><span class="total-val">307г</span><span class="total-lbl">углев</span></div>
-        <div class="total-cell"><span class="total-val">76г</span><span class="total-lbl">жиры</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── СРЕДА (отдых) ── -->
-  <div class="day-content" id="day-2">
-    <div class="note-card">— День отдыха · Меньше углеводов, больше восстановления</div>
-    
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">🌅</span>
-      <div><div class="meal-time">08:00 — завтрак</div><div class="meal-name">Электролит + завтрак</div></div>
-    </div>
-    <div class="bfast-tabs">
-      <button class="bfast-btn active" onclick="showBfast('eggs',this,'d2')">Яйца</button>
-      <button class="bfast-btn" onclick="showBfast('oats',this,'d2')">Каша</button>
-      <button class="bfast-btn" onclick="showBfast('granola',this,'d2')">Гранола</button>
-      <button class="bfast-btn" onclick="showBfast('chia',this,'d2')">Чиа</button>
-    </div>
-    <div id="d2-eggs" class="bfast-content">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
-        <div class="meal-item"><span class="item-name">Яичница (4–5 яиц)</span><span class="item-gram">4–5 шт</span></div>
-        <div class="meal-item"><span class="item-name">Бекон</span><span class="item-gram">60 г</span></div>
-        <div class="meal-item"><span class="item-name">Хлеб с маслом и сыром</span><span class="item-gram">2 ломтика</span></div>
-        <div class="meal-item"><span class="item-name">Папайя</span><span class="item-gram">200 г</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 42г</span><span class="m-chip m-f">Ж · 36г</span><span class="meal-kcal">~660</span></div>
-    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
-    </div>
-    <div id="d2-oats" class="bfast-content" style="display:none">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
-        <div class="meal-item"><span class="item-name">Овсянка замоченная с вечера</span><span class="item-gram">80 г</span></div>
-        <div class="meal-item"><span class="item-name">Банан + арахисовая паста</span><span class="item-gram">1 шт + 1 ст.л.</span></div>
-        <div class="meal-item"><span class="item-name">Мёд + корица + папайя</span><span class="item-gram">по вкусу + 150г</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 18г</span><span class="m-chip m-c">У · 72г</span><span class="m-chip m-f">Ж · 14г</span><span class="meal-kcal">~480</span></div>
-      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
-          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
+      <div id="d2-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
         </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
       </div>
-    
-    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
-    </div>
-    <div id="d2-granola" class="bfast-content" style="display:none">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
-        <div class="meal-item"><span class="item-name">Гранола</span><span class="item-gram">60 г</span></div>
-        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Папайя + банан + мёд</span><span class="item-gram">200 г + ½ шт + 1 ч.л.</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 14г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 12г</span><span class="meal-kcal">~470</span></div>
-      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
-          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
-        </div>
-      </div>
-    
-    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
-    </div>
-    <div id="d2-chia" class="bfast-content" style="display:none">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Электролитный коктейль</span><span class="item-gram">500 мл</span></div>
-        <div class="meal-item"><span class="item-name">Семена чиа</span><span class="item-gram">30 г</span></div>
-        <div class="meal-item"><span class="item-name">Кокосовый йогурт</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Кокосовое молоко</span><span class="item-gram">80 мл</span></div>
-        <div class="meal-item"><span class="item-name">Банан + мёд</span><span class="item-gram">½ шт + 1 ч.л.</span></div>
-        <div class="meal-item"><span class="item-name">Папайя / манго (топпинг)</span><span class="item-gram">100 г</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 10г</span><span class="m-chip m-c">У · 49г</span><span class="m-chip m-f">Ж · 25г</span><span class="meal-kcal">~455</span></div>
-      <div class="recipe-block"><strong>Рецепт · вечером</strong>Чиа + кокосовое молоко + йогурт — перемешать и убрать в холодильник на ночь. Утром: банан + мёд + манго/папайя сверху. Готово.</div>
-      <div style="margin:0 16px 12px; padding:10px 14px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <span style="font-size:10px; color:var(--dim);">+ 2 варёных яйца</span>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:9px; color:var(--muted);">Б·12г · Ж·10г · 130ккал</span>
-          <button class="eggs-btn" onclick="toggleEggs(this, 12, 0, 10, 130)" style="font-size:8px; letter-spacing:2px; padding:4px 12px; border:1px solid var(--border); background:none; color:var(--muted); font-family:'Space Mono',monospace; cursor:pointer; text-transform:uppercase; transition:all 0.2s;">Добавить</button>
-        </div>
-      </div>
-    
-    <button class="check-btn" data-meal-id="d2-bfast" onclick="openCheckModal('d2-bfast')"><span class="check-icon">○</span><span>Завтрак</span><span class="check-pct"></span></button>
-    </div>
-</div>
 
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">🥤</span>
-      <div><div class="meal-time">10:30 — после ходьбы</div><div class="meal-name">Протеиновый коктейль</div></div>
-      <div class="meal-kcal">~480</div>
-    </div>
-    <div class="meal-items">
-      <div class="meal-item"><span class="item-name">Протеин + безлактозное молоко</span><span class="item-gram">1 порция / 300 мл</span></div>
-      <div class="meal-item"><span class="item-name">Овсянка замоченная</span><span class="item-gram">50 г</span></div>
-      <div class="meal-item"><span class="item-name">Банан спелый + корица</span><span class="item-gram">1 шт + ½ ч.л.</span></div>
-    </div>
-    <div class="meal-macros"><span class="m-chip m-p">Б · 35г</span><span class="m-chip m-c">У · 68г</span><span class="m-chip m-f">Ж · 8г</span></div>
-    <button class="check-btn" data-meal-id="d2-shake" onclick="openCheckModal('d2-shake')"><span class="check-icon">○</span><span>Протеиновый коктейль</span><span class="check-pct"></span></button>
-</div>
-    
-  <div class="meal-card">
-    <div class="meal-header">
-      <span class="meal-icon">🍚</span>
-      <div><div class="meal-time">13:00 — обед (купить)</div><div class="meal-name">Рис + курица 🍗</div></div>
-      <div class="meal-kcal lunch-kcal-display">~650</div>
-    </div>
-    <div class="bfast-tabs">
-      <button class="bfast-btn active" onclick="showLunch('chicken',this,2)">🍗 Курица</button>
-      <button class="bfast-btn" onclick="showLunch('fish',this,2)">🐟 Рыба</button>
-      <button class="bfast-btn" onclick="showLunch('shrimp',this,2)">🦐 Креветки</button>
-    </div>
-    <div id="d2-lunch-chicken" class="bfast-content">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Овощи + соевый соус</span><span class="item-gram">100 г</span></div>
+      <div id="d2-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
       </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 82г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~650</span></div>
-      <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('lunch-chicken')" style="background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Что купить →</button></div>
-    <button class="check-btn" data-meal-id="d2-lunch" onclick="openCheckModal('d2-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-    </div>
-    <div id="d2-lunch-fish" class="bfast-content" style="display:none">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Рыба (тилапия / лосось)</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Овощи + соевый соус</span><span class="item-gram">100 г</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 78г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~550</span></div>
-      <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('lunch-fish')" style="background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Что купить →</button></div>
-    <button class="check-btn" data-meal-id="d2-lunch" onclick="openCheckModal('d2-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-    </div>
-    <div id="d2-lunch-shrimp" class="bfast-content" style="display:none">
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Креветки</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Овощи + соевый соус</span><span class="item-gram">100 г</span></div>
-      </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 42г</span><span class="m-chip m-c">У · 80г</span><span class="m-chip m-f">Ж · 4г</span><span class="meal-kcal">~530</span></div>
-      <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('lunch-shrimp')" style="background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Что купить →</button></div>
-    <button class="check-btn" data-meal-id="d2-lunch" onclick="openCheckModal('d2-lunch')"><span class="check-icon">○</span><span>Обед</span><span class="check-pct"></span></button>
-    </div>
-  </div>
 
-<div class="meal-card">
-      <div class="meal-header">
-        <span class="meal-icon">🥚</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d2-dinner')">Тофу с яйцами ›</div></div>
-        <div class="meal-kcal">~480</div>
+      <div id="d2-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">4 шт</span></div>
-        <div class="meal-item"><span class="item-name">Овощи + соевый соус</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">100 г</span></div>
-      </div>
-      <div class="recipe-block"><strong>Рецепт · 8 мин</strong>Тофу нарезать, обсушить, обжарить 3 мин. Овощи 2 мин. Яйца взбить, вылить, перемешать. Соевый соус.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 42г</span><span class="m-chip m-c">У · 32г</span><span class="m-chip m-f">Ж · 22г</span></div>
-    <button class="check-btn" data-meal-id="d2-dinner" onclick="openCheckModal('d2-dinner')"><span class="check-icon">○</span><span>Ужин · Тофу</span><span class="check-pct"></span></button>
+
     </div>
     
   <div class="meal-card">
@@ -1501,19 +1414,51 @@
   </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🍳</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d3-dinner')">Курица с яйцами и овощами ›</div></div>
-        <div class="meal-kcal">~520</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2 шт</span></div>
-        <div class="meal-item"><span class="item-name">Овощи любые</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">100 г</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,3)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,3)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,3)">🥚 Тофу</button>
       </div>
-      <div class="recipe-block"><strong>Рецепт · 10 мин</strong>Курицу нарезать, обжарить 5 мин. Овощи, 3 мин. Яйца разбить прямо в сковороду, перемешать. Соевый соус.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 48г</span><span class="m-chip m-c">У · 38г</span><span class="m-chip m-f">Ж · 18г</span></div>
-    <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
+
+      <div id="d3-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d3-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d3-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d3-dinner" onclick="openCheckModal('d3-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
     </div>
     
   <div class="meal-card">
@@ -1712,19 +1657,51 @@
   </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🐟</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d4-dinner')">Тунец + яйца + рис ›</div></div>
-        <div class="meal-kcal">~480</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Тунец консерва</span><span class="item-gram">185 г</span></div>
-        <div class="meal-item"><span class="item-name">Яйца варёные</span><span class="item-gram">2 шт</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">150 г</span></div>
-        <div class="meal-item"><span class="item-name">Соевый соус + лайм</span><span class="item-gram">по вкусу</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,4)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,4)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,4)">🥚 Тофу</button>
       </div>
-      <div class="recipe-block"><strong>Рецепт · 5 мин</strong>Открыть тунец, слить. Смешать с рисом + соевый соус. Яйца сверху. Лайм. Самый быстрый ужин.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 44г</span><span class="m-chip m-f">Ж · 12г</span></div>
-    <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин · Тунец</span><span class="check-pct"></span></button>
+
+      <div id="d4-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d4-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d4-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d4-dinner" onclick="openCheckModal('d4-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
     </div>
     
   <div class="meal-card">
@@ -1923,19 +1900,51 @@
   </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🦐</span>
-        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d5-dinner')">Креветки с чесноком ›</div></div>
-        <div class="meal-kcal">~460</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">19:30 — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Креветки</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2 шт</span></div>
-        <div class="meal-item"><span class="item-name">Чеснок + масло + лайм</span><span class="item-gram">по вкусу</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">100 г</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,5)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,5)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,5)">🥚 Тофу</button>
       </div>
-      <div class="recipe-block"><strong>Рецепт · 5 мин</strong>Масло + чеснок 1 мин. Креветки 2–3 мин. Лайм + соевый соус. Не пережаривать.</div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 28г</span><span class="m-chip m-f">Ж · 18г</span></div>
-    <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин · Креветки</span><span class="check-pct"></span></button>
+
+      <div id="d5-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d5-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d5-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d5-dinner" onclick="openCheckModal('d5-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
     </div>
     
   <div class="meal-card">
@@ -2123,17 +2132,51 @@
     </div>
     <div class="meal-card">
       <div class="meal-header">
-        <span class="meal-icon">🍗</span>
-        <div><div class="meal-time">После стрима — ужин</div><div class="meal-name meal-name-clickable" onclick="openRecipeModal('d6-dinner')">Курица в арахисовом соусе ›</div></div>
-        <div class="meal-kcal">~560</div>
+        <span class="meal-icon">🍽️</span>
+        <div><div class="meal-time">После стрима — ужин</div><div class="meal-name dinner-name-el">Курица в соевом соусе 🍗</div></div>
+        <div class="meal-kcal dinner-kcal-display">~470</div>
       </div>
-      <div class="meal-items">
-        <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
-        <div class="meal-item"><span class="item-name">Арахисовая паста + соевый соус</span><span class="item-gram">2 ст.л. + 2 ст.л.</span></div>
-        <div class="meal-item"><span class="item-name">Рис</span><span class="item-gram">150 г</span></div>
+      <div class="bfast-tabs">
+        <button class="bfast-btn active" onclick="showDinner('chicken',this,6)">🍗 Курица</button>
+        <button class="bfast-btn" onclick="showDinner('fish',this,6)">🐟 Рыба</button>
+        <button class="bfast-btn" onclick="showDinner('tofu',this,6)">🥚 Тофу</button>
       </div>
-      <div class="meal-macros"><span class="m-chip m-p">Б · 52г</span><span class="m-chip m-c">У · 48г</span><span class="m-chip m-f">Ж · 20г</span></div>
-    <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин · Курица</span><span class="check-pct"></span></button>
+
+      <div id="d6-dinner-chicken" class="bfast-content">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Куриная грудка</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Соевый соус + чеснок + мёд</span><span class="item-gram">2 ст.л. + 2 зуб + 1 ч.л.</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+          <div class="meal-item"><span class="item-name">Растительное масло</span><span class="item-gram">1 ч.л.</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 46г</span><span class="m-chip m-c">У · 52г</span><span class="m-chip m-f">Ж · 8г</span><span class="meal-kcal">~470</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-chicken')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d6-dinner-fish" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тилапия / тунец (банка)</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + соевый соус + лайм</span><span class="item-gram">2 зуб + 1 ст.л. + ½ шт</span></div>
+          <div class="meal-item"><span class="item-name">Рис варёный</span><span class="item-gram">150 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 44г</span><span class="m-chip m-c">У · 45г</span><span class="m-chip m-f">Ж · 6г</span><span class="meal-kcal">~420</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-fish')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
+      <div id="d6-dinner-tofu" class="bfast-content" style="display:none">
+        <div class="meal-items">
+          <div class="meal-item"><span class="item-name">Тофу твёрдый</span><span class="item-gram">200 г</span></div>
+          <div class="meal-item"><span class="item-name">Яйца</span><span class="item-gram">2–3 шт</span></div>
+          <div class="meal-item"><span class="item-name">Чеснок + имбирь + соевый соус</span><span class="item-gram">2 зуб + 1 ч.л. + 2 ст.л.</span></div>
+          <div class="meal-item"><span class="item-name">Овощи (любые)</span><span class="item-gram">100 г</span></div>
+        </div>
+        <div class="meal-macros"><span class="m-chip m-p">Б · 22г</span><span class="m-chip m-c">У · 12г</span><span class="m-chip m-f">Ж · 18г</span><span class="meal-kcal">~300</span></div>
+        <div style="padding:8px 16px 4px;"><button onclick="openRecipeModal('dinner-tofu')" style="background:none;border:none;color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;padding:0;text-transform:uppercase;">📋 Рецепт + таймер →</button></div>
+        <button class="check-btn" data-meal-id="d6-dinner" onclick="openCheckModal('d6-dinner')"><span class="check-icon">○</span><span>Ужин</span><span class="check-pct"></span></button>
+      </div>
+
     </div>
     
   <div class="meal-card">
@@ -2164,142 +2207,89 @@
 </div>
 
 <!-- ══════════ ПОКУПКИ ══════════ -->
-<div id="page-vitamins" class="page">
-  <div class="section-title">Витамины · Добавки</div>
-  <div class="section-sub">Приём по расписанию · каждый день</div>
+<div id="page-today" class="page">
+  <div class="section-title">Сегодня</div>
+  <div class="section-sub">Витамины · Привычки · каждый день</div>
   <div style="padding:0 20px 20px; display:flex; flex-direction:column; gap:12px;">
 
-    <div class="note-card">☀️ Утро — 08:00 · с завтраком</div>
-    <div class="meal-card" style="padding:16px;">
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="vitamin-row" data-vid="v-omega" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Омега-3</div>
-            <div class="vitamin-note">С завтраком — нужен жир для усвоения</div>
-          </div>
-        </div>
-        <div class="vitamin-row" data-vid="v-creatine" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Креатин · 5г</div>
-            <div class="vitamin-note">С завтраком, ежедневно без перерывов</div>
-          </div>
-        </div>
-        <div class="vitamin-row" data-vid="v-d3" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">D3 + K2</div>
-            <div class="vitamin-note">С жирной едой утром</div>
-          </div>
-        </div>
+    <!-- VITAMINS -->
+    <div class="note-card">⬡ Витамины и добавки</div>
+
+    <div class="meal-card" style="padding:0 16px;">
+      <div style="font-size:9px; letter-spacing:2px; color:var(--gold); padding:12px 0 6px; text-transform:uppercase;">☀️ Утро · 08:00</div>
+      <div class="vitamin-row" data-vid="v-omega" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Омега-3</div><div class="vitamin-note">С завтраком — нужен жир для усвоения</div></div>
+      </div>
+      <div class="vitamin-row" data-vid="v-creatine" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Креатин · 5г</div><div class="vitamin-note">Ежедневно, без перерывов</div></div>
+      </div>
+      <div class="vitamin-row" data-vid="v-d3" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">D3 + K2</div><div class="vitamin-note">С жирной едой утром</div></div>
+      </div>
+      <div style="font-size:9px; letter-spacing:2px; color:var(--gold); padding:12px 0 6px; text-transform:uppercase; border-top:1px solid var(--border); margin-top:4px;">🏋️ После тренировки · 18:00</div>
+      <div class="vitamin-row" data-vid="v-whey" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Сывороточный протеин</div><div class="vitamin-note">Сразу после тренировки · 1 порция</div></div>
+      </div>
+      <div style="font-size:9px; letter-spacing:2px; color:var(--gold); padding:12px 0 6px; text-transform:uppercase; border-top:1px solid var(--border); margin-top:4px;">🌙 Вечер · 23:00</div>
+      <div class="vitamin-row" data-vid="v-mag" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Магний глицинат</div><div class="vitamin-note">Расслабление мышц, качество сна</div></div>
+      </div>
+      <div class="vitamin-row" data-vid="v-theanine" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">L-теанин</div><div class="vitamin-note">Снимает тревожность, помогает уснуть</div></div>
+      </div>
+      <div class="vitamin-row" data-vid="v-ashwagandha" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Ашваганда (KSM-66)</div><div class="vitamin-note">Снижает кортизол вечером</div></div>
+      </div>
+      <div class="vitamin-row" data-vid="v-casein" onclick="toggleVitamin(this)">
+        <div class="vitamin-check">○</div>
+        <div class="vitamin-body"><div class="vitamin-name">Казеиновый протеин</div><div class="vitamin-note">Последним · медленный белок на ночь</div></div>
       </div>
     </div>
 
-    <div class="note-card">🏋️ После тренировки · 18:00</div>
-    <div class="meal-card" style="padding:16px;">
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="vitamin-row" data-vid="v-whey" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Сывороточный протеин</div>
-            <div class="vitamin-note">Сразу после тренировки · 1 порция</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="note-card">🌙 Вечер — 23:00 · перед сном</div>
-    <div class="meal-card" style="padding:16px;">
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="vitamin-row" data-vid="v-mag" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Магний глицинат</div>
-            <div class="vitamin-note">Расслабление мышц и качество сна</div>
-          </div>
-        </div>
-        <div class="vitamin-row" data-vid="v-theanine" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">L-теанин</div>
-            <div class="vitamin-note">Снимает тревожность, помогает уснуть</div>
-          </div>
-        </div>
-        <div class="vitamin-row" data-vid="v-ashwagandha" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Ашваганда (KSM-66)</div>
-            <div class="vitamin-note">Снижает кортизол вечером</div>
-          </div>
-        </div>
-        <div class="vitamin-row" data-vid="v-casein" onclick="toggleVitamin(this)">
-          <div class="vitamin-check">○</div>
-          <div class="vitamin-body">
-            <div class="vitamin-name">Казеиновый протеин</div>
-            <div class="vitamin-note">Последним · медленный белок на ночь</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button class="check-btn" style="margin:8px 0 0;" onclick="completeAllVitamins()">
-      <span class="check-icon">○</span><span>Все добавки приняты</span><span class="check-pct"></span>
+    <button class="check-btn" onclick="completeAllVitamins()">
+      <span class="check-icon" id="vitamins-all-icon">○</span><span>Все добавки приняты</span><span class="check-pct" id="vitamins-all-pct"></span>
     </button>
 
-  </div>
-  <div class="page-footer">武道 · Brotherhood · 道</div>
-</div>
+    <!-- HABITS -->
+    <div class="note-card" style="margin-top:8px;">修 Привычки дня</div>
 
-<div id="page-habits" class="page">
-  <div class="section-title">Привычки</div>
-  <div class="section-sub">Чеклист · каждый день</div>
-  <div style="padding:0 20px 20px; display:flex; flex-direction:column; gap:12px;">
-
-    <div class="meal-card" style="padding:16px;">
-      <div style="display:flex; flex-direction:column; gap:0;">
-        <div class="habit-row" data-hid="h-wake" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Подъём в 08:00</div>
-          </div>
-        </div>
-        <div class="habit-row" data-hid="h-sleep" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Отбой в 24:00</div>
-          </div>
-        </div>
-        <div class="habit-row" data-hid="h-nosmoking" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Без сигарет 🚭</div>
-          </div>
-        </div>
-        <div class="habit-row" data-hid="h-nosweets" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Без сладкого 🍬</div>
-          </div>
-        </div>
-        <div class="habit-row" data-hid="h-noinsta" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Без Instagram 📵</div>
-          </div>
-        </div>
-        <div class="habit-row" data-hid="h-noporn" onclick="toggleHabit(this)">
-          <div class="habit-check">○</div>
-          <div class="habit-body">
-            <div class="habit-name">Без порно 🔒</div>
-          </div>
-        </div>
+    <div class="meal-card" style="padding:0 16px;">
+      <div class="habit-row" data-hid="h-wake" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Подъём в 08:00</div></div>
+      </div>
+      <div class="habit-row" data-hid="h-sleep" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Отбой в 24:00</div></div>
+      </div>
+      <div class="habit-row" data-hid="h-nosmoking" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Без сигарет 🚭</div></div>
+      </div>
+      <div class="habit-row" data-hid="h-nosweets" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Без сладкого 🍬</div></div>
+      </div>
+      <div class="habit-row" data-hid="h-noinsta" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Без Instagram 📵</div></div>
+      </div>
+      <div class="habit-row" data-hid="h-noporn" onclick="toggleHabit(this)">
+        <div class="habit-check">○</div>
+        <div class="habit-body"><div class="habit-name">Без порно 🔒</div></div>
       </div>
     </div>
 
-    <div id="habits-score" style="text-align:center; font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:2px; padding:4px 0;">0 / 6 выполнено</div>
+    <div id="habits-score" style="text-align:center; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px;">0 / 6 выполнено</div>
 
-    <button class="check-btn" style="margin:0;" onclick="completeAllHabits()">
+    <button class="check-btn" onclick="completeAllHabits()">
       <span class="check-icon" id="habits-all-icon">○</span><span>День прожит правильно</span><span class="check-pct" id="habits-all-pct"></span>
     </button>
 
@@ -2311,12 +2301,37 @@
   <button class="nav-btn active" onclick="showPage('plan', this)">
     <span class="icon">道</span>план
   </button>
-  <button class="nav-btn" onclick="showPage('vitamins', this)">
-    <span class="icon">⬡</span>витамины
+  <button class="nav-btn" onclick="showPage('today', this)">
+    <span class="icon">修</span>сегодня
   </button>
-  <button class="nav-btn" onclick="showPage('habits', this)">
-    <span class="icon">修</span>привычки
-  </button>
+</div>
+
+
+<!-- ── RECIPE MODAL ── -->
+<div id="recipe-modal">
+  <div class="recipe-modal-box">
+    <div id="rm-icon" class="recipe-modal-icon">🍗</div>
+    <div id="rm-title" class="recipe-modal-title"></div>
+    <div id="rm-time" class="recipe-modal-time"></div>
+    <div id="rm-steps"></div>
+    <button class="recipe-cook-btn" id="rm-cook-btn" onclick="startCooking()">⏱ Готовить</button>
+    <button class="recipe-close-btn" onclick="closeRecipeModal()">Закрыть</button>
+  </div>
+</div>
+
+<!-- ── TIMER MODAL ── -->
+<div id="timer-modal">
+  <div class="timer-box recipe-modal-box">
+    <div id="tm-counter" class="timer-step-counter">Шаг 1 из 5</div>
+    <div id="tm-title" class="timer-step-title"></div>
+    <div id="tm-desc" class="timer-step-desc"></div>
+    <div id="tm-display" class="timer-display">—</div>
+    <div class="timer-progress-wrap"><div id="tm-bar" class="timer-progress-bar" style="width:0%"></div></div>
+    <div class="timer-btns">
+      <button class="timer-btn-skip" onclick="timerSkip()">Пропустить</button>
+      <button class="timer-btn-next" id="tm-next-btn" onclick="timerNext()">Следующий шаг →</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -2765,6 +2780,10 @@ function updateHeader() {
       const lf = lunchDelta[currentLunch[currentDay]];
       mk=lf.kcal; mp=lf.p; mc=lf.c; mf=lf.f;
     }
+    if (m.id.endsWith('-dinner')) {
+      const df = dinnerDelta[currentDinner[currentDay]];
+      mk=df.kcal; mp=df.p; mc=df.c; mf=df.f;
+    }
     planKcal+=mk; planP+=mp; planC+=mc; planF+=mf;
     const pct = (mealCompletion[m.id] || 0) / 100;
     eatKcal+=mk*pct; eatP+=mp*pct; eatC+=mc*pct; eatF+=mf*pct;
@@ -2833,6 +2852,10 @@ function openCheckModal(mealId) {
   if (meal.id.endsWith('-lunch')) {
     const lf = lunchDelta[currentLunch[currentDay]];
     mk=lf.kcal; mp=lf.p; mc=lf.c; mf=lf.f;
+  }
+  if (meal.id.endsWith('-dinner')) {
+    const df = dinnerDelta[currentDinner[currentDay]];
+    mk=df.kcal; mp=df.p; mc=df.c; mf=df.f;
   }
   modalMealId = mealId;
   selectedPct = null;
@@ -3157,35 +3180,27 @@ function completeAllHabits() {
   updateHabitsScore();
 }
 
+
+// ── DINNER SWITCHER ──────────────────────────────────────────────────────────
+const currentDinner = ['chicken','chicken','chicken','chicken','chicken','chicken','chicken'];
+const dinnerDelta = {
+  chicken: { kcal:470, p:46, c:52, f:8  },
+  fish:    { kcal:420, p:44, c:45, f:6  },
+  tofu:    { kcal:300, p:22, c:12, f:18 },
+};
+function showDinner(type, btn, dayIdx) {
+  const card = btn.closest('.meal-card');
+  card.querySelectorAll('.bfast-btn').forEach(b => b.classList.remove('active'));
+  card.querySelectorAll('.bfast-content').forEach(c => c.style.display = 'none');
+  btn.classList.add('active');
+  document.getElementById('d' + dayIdx + '-dinner-' + type).style.display = 'block';
+  const names = { chicken:'Курица в соевом соусе 🍗', fish:'Рыба с рисом 🐟', tofu:'Тофу скрэмбл 🥚' };
+  card.querySelector('.dinner-name-el').textContent = names[type];
+  card.querySelector('.dinner-kcal-display').textContent = '~' + dinnerDelta[type].kcal;
+  currentDinner[dayIdx] = type;
+  updateHeader();
+}
+
 </script>
-
-
-<!-- ── RECIPE MODAL ── -->
-<div id="recipe-modal">
-  <div class="recipe-modal-box">
-    <div id="rm-icon" class="recipe-modal-icon">🍗</div>
-    <div id="rm-title" class="recipe-modal-title"></div>
-    <div id="rm-time" class="recipe-modal-time"></div>
-    <div id="rm-steps"></div>
-    <button class="recipe-cook-btn" id="rm-cook-btn" onclick="startCooking()">⏱ Готовить</button>
-    <button class="recipe-close-btn" onclick="closeRecipeModal()">Закрыть</button>
-  </div>
-</div>
-
-<!-- ── TIMER MODAL ── -->
-<div id="timer-modal">
-  <div class="timer-box recipe-modal-box">
-    <div id="tm-counter" class="timer-step-counter">Шаг 1 из 5</div>
-    <div id="tm-title" class="timer-step-title"></div>
-    <div id="tm-desc" class="timer-step-desc"></div>
-    <div id="tm-display" class="timer-display">—</div>
-    <div class="timer-progress-wrap"><div id="tm-bar" class="timer-progress-bar" style="width:0%"></div></div>
-    <div class="timer-btns">
-      <button class="timer-btn-skip" onclick="timerSkip()">Пропустить</button>
-      <button class="timer-btn-next" id="tm-next-btn" onclick="timerNext()">Следующий шаг →</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>

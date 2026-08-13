@@ -1,36 +1,4 @@
-<!DO
-
-  // ── COMMON DINNER RECIPES ───────────────────────────────────────────────────
-  recipeData['dinner-chicken'] = {
-    name:'Курица в соевом соусе', icon:'🍗', totalTime:'10 мин',
-    steps:[
-      { title:'Нарезать курицу', desc:'Нарезать куриную грудку полосками или кубиками.', dur:60 },
-      { title:'Раскалить сковороду', desc:'Добавить масло, хорошо разогреть на сильном огне.', dur:60 },
-      { title:'Обжарить курицу', desc:'Выложить курицу. Не трогать 2–3 мин — пусть схватится корочка.', dur:180 },
-      { title:'Перевернуть + соус', desc:'Перевернуть кусочки. Добавить чеснок, соевый соус, мёд.', dur:120 },
-      { title:'Карамелизация', desc:'Жарить до золотистой корочки. Соус должен загустеть.', dur:120 },
-    ]
-  };
-  recipeData['dinner-fish'] = {
-    name:'Рыба с рисом и лаймом', icon:'🐟', totalTime:'7 мин',
-    steps:[
-      { title:'Раскалить сковороду', desc:'Добавить масло + измельчённый чеснок. Обжарить 30 секунд.', dur:60 },
-      { title:'Положить рыбу', desc:'Рыбу выложить. Не двигать — дать схватиться корочке.', dur:180 },
-      { title:'Перевернуть', desc:'Перевернуть на другую сторону.', dur:180 },
-      { title:'Финал', desc:'Добавить соевый соус + выжать лайм. Снять с огня.', dur:30 },
-    ]
-  };
-  recipeData['dinner-tofu'] = {
-    name:'Тофу скрэмбл с яйцами', icon:'🥚', totalTime:'8 мин',
-    steps:[
-      { title:'Подготовить тофу', desc:'Нарезать кубиками 2×2 см. Обсушить бумажным полотенцем — иначе не будет корочки.', dur:60 },
-      { title:'Обжарить тофу', desc:'Раскалить сковороду с маслом. Выложить тофу и НЕ ТРОГАТЬ 3 мин.', dur:180 },
-      { title:'Добавить овощи', desc:'Перевернуть тофу. Добавить овощи + чеснок + имбирь.', dur:120 },
-      { title:'Яйца', desc:'Взбить яйца, вылить в сковороду. Перемешивать до готовности.', dur:60 },
-      { title:'Соевый соус', desc:'Добавить соевый соус. Снять с огня. Готово.', dur:30 },
-    ]
-  };
-CTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -695,17 +663,20 @@ CTYPE html>
 
   .pct-btn.selected { background:#c9a84c !important; color:#000 !important; border-color:#c9a84c !important; }
   .pct-btn:hover { border-color:#c9a84c !important; color:#c9a84c !important; }
-  #modal.open, #meal-select-modal.open { opacity:1 !important; pointer-events:all !important; }
-  #modal.open #modal-box, #meal-select-modal.open #meal-select-box { transform:translateY(0) !important; }
-  .meal-select-option { display:flex; align-items:center; gap:14px; padding:14px 20px; border-bottom:1px solid #1a1a1a; cursor:pointer; transition:background .15s; }
-  .meal-select-option:hover { background:#161616; }
-  .meal-select-option-icon { font-size:24px; min-width:36px; text-align:center; }
+  #modal.open { opacity:1 !important; pointer-events:all !important; }
+  #modal.open #modal-box { transform:translateY(0) !important; }
+  #meal-select-modal.open { opacity:1 !important; pointer-events:all !important; transform:translateX(0) !important; }
+  .meal-select-option { display:flex; flex-direction:column; gap:0; border:1px solid #1e1e1e; border-radius:2px; overflow:hidden; background:#131313; transition:border-color .15s; }
+  .meal-select-option:active { border-color:#c9a84c; }
+  .meal-select-option-top { display:flex; align-items:center; gap:14px; padding:16px; }
+  .meal-select-option-icon { font-size:30px; min-width:44px; text-align:center; }
   .meal-select-option-body { flex:1; }
-  .meal-select-option-name { font-size:12px; color:#ddd; letter-spacing:1px; margin-bottom:4px; }
-  .meal-select-option-macros { font-size:9px; color:#666; letter-spacing:1px; }
-  .meal-select-option-btns { display:flex; flex-direction:column; gap:6px; }
-  .meal-opt-select-btn { padding:6px 12px; background:#c9a84c; color:#000; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; }
-  .meal-opt-recipe-btn { padding:6px 12px; background:none; border:1px solid #2a2a2a; color:#888; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; cursor:pointer; text-transform:uppercase; }
+  .meal-select-option-name { font-size:13px; color:#e8e8e8; letter-spacing:1px; margin-bottom:5px; font-weight:600; }
+  .meal-select-option-macros { font-size:9px; color:#777; letter-spacing:1px; }
+  .meal-select-option-btns { display:flex; border-top:1px solid #1e1e1e; }
+  .meal-opt-select-btn { flex:1; padding:12px; background:#c9a84c; color:#000; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1.5px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; }
+  .meal-opt-recipe-btn { flex:1; padding:12px; background:none; border:none; border-left:1px solid #1e1e1e; color:#999; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1.5px; cursor:pointer; text-transform:uppercase; }
+  .meal-opt-cook-btn { flex:1; padding:12px; background:none; border:none; border-left:1px solid #1e1e1e; color:#c9a84c; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1.5px; cursor:pointer; text-transform:uppercase; font-weight:700; }
   .change-meal-btn { background:none; border:1px solid #2a2a2a; color:#888; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; cursor:pointer; padding:4px 10px; text-transform:uppercase; }
   .change-meal-btn:hover { border-color:#c9a84c; color:#c9a84c; }
 
@@ -2631,14 +2602,15 @@ CTYPE html>
 </div>
 
 <!-- ── MEAL SELECT MODAL ── -->
-<div id="meal-select-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:950;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;">
-  <div style="background:#111;border:1px solid #2a2a2a;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;padding:20px 0 32px;border-radius:2px 2px 0 0;transform:translateY(40px);transition:transform .3s;" id="meal-select-box">
-    <div id="meal-select-title" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;text-align:center;padding:0 20px 16px;border-bottom:1px solid #1a1a1a;">Выбери приём пищи</div>
-    <div id="meal-select-list" style="display:flex;flex-direction:column;gap:0;"></div>
-    <div style="padding:16px 20px 0;">
-      <button onclick="closeMealSelect()" style="width:100%;padding:10px;background:none;border:1px solid #2a2a2a;color:#555;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;text-transform:uppercase;">Закрыть</button>
+<div id="meal-select-modal" style="position:fixed;inset:0;background:#0d0d0d;z-index:950;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s; transform:translateX(20px);">
+  <div style="position:sticky;top:0;background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:16px 16px 14px;display:flex;align-items:center;gap:12px;z-index:2;">
+    <button onclick="closeMealSelect()" style="background:none;border:1px solid #2a2a2a;color:#888;font-family:'Space Mono',monospace;font-size:14px;cursor:pointer;padding:8px 12px;line-height:1;">←</button>
+    <div style="flex:1;">
+      <div id="meal-select-title" style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;">Выбери приём пищи</div>
+      <div id="meal-select-count" style="font-size:9px;color:#666;letter-spacing:1px;margin-top:3px;"></div>
     </div>
   </div>
+  <div id="meal-select-list" style="flex:1;overflow-y:auto;padding:12px 16px 40px;display:flex;flex-direction:column;gap:10px;"></div>
 </div>
 
 <script>
@@ -3551,25 +3523,29 @@ let currentMealSelectType = null;
 
 function openMealSelect(type) {
   currentMealSelectType = type;
-  const titles = { bfast:'Завтрак · выбери вариант', lunch:'Обед · выбери вариант', dinner:'Ужин · выбери вариант' };
-  document.getElementById('meal-select-title').textContent = titles[type] || 'Выбери приём пищи';
+  const titles = { bfast:'Завтрак', lunch:'Обед', dinner:'Ужин' };
+  document.getElementById('meal-select-title').textContent = titles[type] || 'Приём пищи';
   const list = document.getElementById('meal-select-list');
   const options = mealOptionsData[type] || [];
+  document.getElementById('meal-select-count').textContent = options.length + ' вариант' + (options.length===1?'':(options.length<5?'а':'ов'));
   list.innerHTML = options.map(opt => `
     <div class="meal-select-option">
-      <div class="meal-select-option-icon">${opt.icon}</div>
-      <div class="meal-select-option-body">
-        <div class="meal-select-option-name">${opt.name}</div>
-        <div class="meal-select-option-macros">${opt.macros}</div>
+      <div class="meal-select-option-top">
+        <div class="meal-select-option-icon">${opt.icon}</div>
+        <div class="meal-select-option-body">
+          <div class="meal-select-option-name">${opt.name}</div>
+          <div class="meal-select-option-macros">${opt.macros}</div>
+        </div>
       </div>
       <div class="meal-select-option-btns">
-        <button class="meal-opt-select-btn" onclick="selectMealOption('${type}','${opt.id}')">Выбрать</button>
+        <button class="meal-opt-select-btn" onclick="selectMealOption('${type}','${opt.id}')">✓ Выбрать</button>
         <button class="meal-opt-recipe-btn" onclick="openRecipeModal('${opt.recipeId}')">📋 Рецепт</button>
-        <button class="meal-opt-recipe-btn" onclick="startCookingDirect('${opt.recipeId}')" style="border-color:var(--gold);color:var(--gold);">▶ Готовить</button>
+        <button class="meal-opt-cook-btn" onclick="startCookingDirect('${opt.recipeId}')">▶ Готовить</button>
       </div>
     </div>
   `).join('');
   document.getElementById('meal-select-modal').classList.add('open');
+  document.getElementById('meal-select-list').scrollTop = 0;
 }
 
 function closeMealSelect() {
@@ -3637,6 +3613,37 @@ recipeData['bfast-chia'] = {
   ]
 };
 
+
+// ── COMMON DINNER RECIPES ───────────────────────────────────────────────────
+  recipeData['dinner-chicken'] = {
+    name:'Курица в соевом соусе', icon:'🍗', totalTime:'10 мин',
+    steps:[
+      { title:'Нарезать курицу', desc:'Нарезать куриную грудку полосками или кубиками.', dur:60 },
+      { title:'Раскалить сковороду', desc:'Добавить масло, хорошо разогреть на сильном огне.', dur:60 },
+      { title:'Обжарить курицу', desc:'Выложить курицу. Не трогать 2–3 мин — пусть схватится корочка.', dur:180 },
+      { title:'Перевернуть + соус', desc:'Перевернуть кусочки. Добавить чеснок, соевый соус, мёд.', dur:120 },
+      { title:'Карамелизация', desc:'Жарить до золотистой корочки. Соус должен загустеть.', dur:120 },
+    ]
+  };
+  recipeData['dinner-fish'] = {
+    name:'Рыба с рисом и лаймом', icon:'🐟', totalTime:'7 мин',
+    steps:[
+      { title:'Раскалить сковороду', desc:'Добавить масло + измельчённый чеснок. Обжарить 30 секунд.', dur:60 },
+      { title:'Положить рыбу', desc:'Рыбу выложить. Не двигать — дать схватиться корочке.', dur:180 },
+      { title:'Перевернуть', desc:'Перевернуть на другую сторону.', dur:180 },
+      { title:'Финал', desc:'Добавить соевый соус + выжать лайм. Снять с огня.', dur:30 },
+    ]
+  };
+  recipeData['dinner-tofu'] = {
+    name:'Тофу скрэмбл с яйцами', icon:'🥚', totalTime:'8 мин',
+    steps:[
+      { title:'Подготовить тофу', desc:'Нарезать кубиками 2×2 см. Обсушить бумажным полотенцем — иначе не будет корочки.', dur:60 },
+      { title:'Обжарить тофу', desc:'Раскалить сковороду с маслом. Выложить тофу и НЕ ТРОГАТЬ 3 мин.', dur:180 },
+      { title:'Добавить овощи', desc:'Перевернуть тофу. Добавить овощи + чеснок + имбирь.', dur:120 },
+      { title:'Яйца', desc:'Взбить яйца, вылить в сковороду. Перемешивать до готовности.', dur:60 },
+      { title:'Соевый соус', desc:'Добавить соевый соус. Снять с огня. Готово.', dur:30 },
+    ]
+  };
 </script>
 </body>
 </html>

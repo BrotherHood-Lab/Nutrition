@@ -2,30 +2,95 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
 <title>Brotherhood · Войти</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Space+Mono:wght@400;700&display=swap');
-  * { box-sizing:border-box; margin:0; padding:0; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
   body {
-    background:#0a0a0a;
-    color:#e8e0d0;
-    font-family:'Space Mono',monospace;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:40px 24px;
+    background: #0a0a0a;
+    color: #e8e0d0;
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(32px, 8vw, 48px) 20px;
+    padding-bottom: calc(clamp(32px, 8vw, 48px) + env(safe-area-inset-bottom));
+    overflow-x: hidden;
   }
-  .kanji { font-size:10px; letter-spacing:8px; color:#444; margin-bottom:32px; }
-  .logo { font-family:'Cormorant Garamond',serif; font-size:52px; font-weight:300; letter-spacing:12px; color:#c9a84c; text-transform:uppercase; margin-bottom:12px; }
-  .tagline { font-size:9px; letter-spacing:5px; color:#444; text-transform:uppercase; margin-bottom:60px; }
-  .line { width:1px; height:40px; background:linear-gradient(to bottom,#c9a84c,transparent); margin:0 auto 48px; }
-  .label { font-size:8px; letter-spacing:3px; color:#555; text-transform:uppercase; margin-bottom:24px; }
-  .tg-widget { margin-bottom:16px; }
-  .note { font-size:9px; color:#333; letter-spacing:1px; margin-top:32px; }
+
+  .kanji {
+    font-size: clamp(9px, 2.6vw, 10px);
+    letter-spacing: 0.7em;
+    margin-right: -0.7em;
+    color: #444;
+    margin-bottom: clamp(22px, 6vw, 32px);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 7.2vw, 52px);
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    color: #c9a84c;
+    text-transform: uppercase;
+    margin: 0 -0.16em 12px 0;
+    line-height: 1.15;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .tagline {
+    font-size: clamp(8px, 2.4vw, 9px);
+    letter-spacing: 0.4em;
+    margin-right: -0.4em;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: clamp(34px, 10vw, 60px);
+  }
+
+  .line {
+    width: 1px;
+    height: clamp(30px, 7vw, 40px);
+    background: linear-gradient(to bottom, #c9a84c, transparent);
+    margin: 0 auto clamp(30px, 8vw, 48px);
+  }
+
+  .label {
+    font-size: clamp(8px, 2.4vw, 9px);
+    letter-spacing: 0.3em;
+    margin-right: -0.3em;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: clamp(18px, 5vw, 24px);
+  }
+
+  .tg-widget {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    margin-bottom: 16px;
+  }
+  .tg-widget iframe { max-width: 100% !important; }
+
+  .note {
+    font-size: clamp(9px, 2.4vw, 10px);
+    line-height: 1.7;
+    color: #333;
+    letter-spacing: 1px;
+    margin-top: clamp(24px, 7vw, 32px);
+    max-width: 300px;
+  }
 </style>
 </head>
 <body>

@@ -388,14 +388,20 @@ function logoutUser() {
   if (confirm('Выйти из кабинета?')) {
     localStorage.removeItem('bh_telegram_id');
     localStorage.removeItem('bh_nickname');
-    window.location.href = '/Nutrition/login.html';
+    window.location.href = '/training/login.html';
   }
 }
 
-(function() {
-  const nick = localStorage.getItem('bh_nickname') || 'User';
+(async function() {
   const el = document.getElementById('user-nick');
-  if (el) el.textContent = nick;
+  if (!el) return;
+  let nick = localStorage.getItem('bh_nickname') || 'Участник';
+  try {
+    const tgId = localStorage.getItem('bh_telegram_id');
+    const rows = await sbFetch('GET', '/rest/v1/user_profiles?telegram_id=eq.' + encodeURIComponent(tgId) + '&select=nickname&limit=1');
+    if (Array.isArray(rows) && rows[0] && rows[0].nickname) nick = rows[0].nickname;
+  } catch (e) {}
+  el.textContent = nick;
 })();
 
 // ── NAV ──

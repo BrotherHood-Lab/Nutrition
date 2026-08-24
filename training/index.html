@@ -237,10 +237,6 @@
   </div>
 </header>
 
-<div style="background:#1a1608;border-bottom:1px solid rgba(201,168,76,0.35);padding:8px 20px;text-align:center;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;">
-  ⚠ демо-режим — тестовые данные, не сохраняются в реальную базу
-</div>
-
 
 <div id="page-power" class="page active">
 <div style="padding-top:16px"></div>
@@ -361,15 +357,14 @@
 </div>
 
 <script>
-// ── АВТОРИЗАЦИЯ (отключена в демо-режиме превью) ──
+// ── АВТОРИЗАЦИЯ ──
 if (!localStorage.getItem('bh_telegram_id')) {
-  localStorage.setItem('bh_telegram_id', 'demo');
-  localStorage.setItem('bh_nickname', 'LEXER');
+  window.location.href = '/training/login.html';
 }
 
 // ── SUPABASE ──
-const SUPABASE_URL = 'https://doohwfmfqvtbwdtwtfzm.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvb2h3Zm1mcXZ0YndkdHd0ZnptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3NjMwMjYsImV4cCI6MjEwMTMzOTAyNn0.EVqa9pv6pzp6AQWTLPzc7DkJU0m6cpLbnEIhFXtHBB4';
+const SUPABASE_URL = 'https://xcodcnqioajyqiiyfbrk.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_Qv4GTQtlinmb1YMbBG5vmw_Pw-U85-S';
 
 function getUserId() { return 'tg_' + localStorage.getItem('bh_telegram_id'); }
 function getTodayDate() { return new Date().toISOString().split('T')[0]; }
@@ -393,7 +388,7 @@ function logoutUser() {
   if (confirm('Выйти из кабинета?')) {
     localStorage.removeItem('bh_telegram_id');
     localStorage.removeItem('bh_nickname');
-    window.location.href = '/training/login.html';
+    window.location.href = '/Nutrition/login.html';
   }
 }
 
@@ -941,82 +936,6 @@ async function loadStats() {
 }
 
 
-// ============================================================================
-// ДЕМО-РЕЖИМ: подмена sbFetch тестовыми данными вместо реального Supabase.
-// Весь остальной код (loadTraining, loadDiscipline, loadStats, рендер,
-// расчёт целей/рангов/стриков) — это ТОЧНО ТОТ ЖЕ КОД, что и в боевом index.html.
-// ============================================================================
-
-function _daysAgo(n) {
-  const d = new Date();
-  d.setDate(d.getDate() - n);
-  return d.toISOString().split('T')[0];
-}
-
-const MOCK_EXERCISE_LOGS = {
-  pushups: [ [18,'30'], [14,'35'], [10,'28'], [6,'40'], [3,'42'] ].map(([d,v]) => ({ value: Number(v), date: _daysAgo(d) })),
-  pullups: [ [14,'10'], [10,'12'], [6,'12'], [3,'14'] ].map(([d,v]) => ({ value: Number(v), date: _daysAgo(d) })),
-  squats:  [ [18,'26'], [14,'29'], [10,'32'], [6,'35'], [3,'38'] ].map(([d,v]) => ({ value: Number(v), date: _daysAgo(d) })),
-  plank:   [ [14,'60'], [10,'75'], [6,'82'], [3,'95'] ].map(([d,v]) => ({ value: Number(v), date: _daysAgo(d) })),
-  ladder:  [ [10,'5'], [6,'6'], [3,'6'], [1,'7'] ].map(([d,v]) => ({ value: Number(v), date: _daysAgo(d) })),
-};
-
-const MOCK_HABIT_LOGS = [];
-const HABIT_KEYS_DEMO = ['wake_8','sleep_24','no_smoke','no_sweets','no_instagram','no_porn','morning_walk','evening_stretch'];
-for (let day = 0; day <= 7; day++) {
-  HABIT_KEYS_DEMO.forEach((key, i) => {
-    const skip = (key !== 'no_smoke') && ((day === 3 && i % 2 === 0) || (day === 5 && i === 3));
-    if (!skip) MOCK_HABIT_LOGS.push({ habit_key: key, date: _daysAgo(day), value: 1 });
-  });
-}
-// Медитация — стрик 4 дня подряд (вчера-4 дня назад), сегодня ещё не сделана —
-// с льготным периодом стрик покажет 4, а не обнулится
-[1,2,3,4].forEach((d, i) => MOCK_HABIT_LOGS.push({ habit_key: 'meditation', date: _daysAgo(d), value: [10,5,10,5][i] }));
-['vit_creatine','vit_protein'].forEach(key => MOCK_HABIT_LOGS.push({ habit_key: key, date: _daysAgo(0), value: 1 }));
-['vit_omega3','vit_sleep_stack','vit_casein'].forEach(key => MOCK_HABIT_LOGS.push({ habit_key: key, date: _daysAgo(1), value: 1 }));
-
-function sbFetch(method, path) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      if (path.includes('/rest/v1/exercise_logs')) {
-        const m = path.match(/exercise=eq\.(\w+)/);
-        const key = m ? m[1] : null;
-        const rows = (MOCK_EXERCISE_LOGS[key] || []).slice().sort((a, b) => a.date < b.date ? -1 : 1);
-        resolve(rows);
-        return;
-      }
-      if (path.includes('/rest/v1/habit_logs')) {
-        if (method === 'GET') {
-          const sinceMatch = path.match(/date=gte\.([\d-]+)/);
-          const since = sinceMatch ? sinceMatch[1] : '0000-00-00';
-          resolve(MOCK_HABIT_LOGS.filter(r => r.date >= since));
-          return;
-        }
-        if (method === 'DELETE') {
-          const keyMatch = path.match(/habit_key=eq\.([\w]+)/);
-          const dateMatch = path.match(/date=eq\.([\d-]+)/);
-          const key = keyMatch && keyMatch[1], date = dateMatch && dateMatch[1];
-          const idx = MOCK_HABIT_LOGS.findIndex(r => r.habit_key === key && r.date === date);
-          if (idx >= 0) MOCK_HABIT_LOGS.splice(idx, 1);
-          resolve(null);
-          return;
-        }
-        resolve(null);
-      }
-    }, 120);
-  });
-}
-
-const _origSbFetch = sbFetch;
-window.sbFetch = function (method, path, body) {
-  if (method === 'POST' && path.includes('/rest/v1/habit_logs') && body) {
-    const idx = MOCK_HABIT_LOGS.findIndex(r => r.habit_key === body.habit_key && r.date === body.date);
-    if (idx >= 0) MOCK_HABIT_LOGS[idx] = { habit_key: body.habit_key, date: body.date, value: body.value };
-    else MOCK_HABIT_LOGS.push({ habit_key: body.habit_key, date: body.date, value: body.value });
-    return new Promise(resolve => setTimeout(() => resolve([body]), 120));
-  }
-  return _origSbFetch(method, path, body);
-};
 
 </script>
 </body>
